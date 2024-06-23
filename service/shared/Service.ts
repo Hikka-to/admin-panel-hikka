@@ -1,7 +1,7 @@
 import { axiosAgent } from "@/utils/AxionAgent";
 import axios, { AxiosInstance } from "axios";
 
-export default class Service {
+export default abstract class Service {
   protected axiosInstance: AxiosInstance;
 
   public constructor(addUrl:string) {

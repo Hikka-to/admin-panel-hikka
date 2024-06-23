@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import Service from "./Service";
+import Service from "./shared/Service";
 import { FilterPaginationDto } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import { ReturnPageDto } from "@/models/Shared/return-page-dto";
 import { GetUserDto } from "@/models/Dto/Users/get-user-dto";
