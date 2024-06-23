@@ -5,6 +5,8 @@ import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
+import { SessionProvider } from "next-auth/react";
+import ProtectedLayout from "@/components/layouts/ProtectedLayout";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -16,7 +18,13 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <NextUIProvider navigate={router.push}>
-      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      <NextThemesProvider {...themeProps}>
+        <SessionProvider>
+          <ProtectedLayout>
+            {children}
+          </ProtectedLayout>
+        </SessionProvider>
+      </NextThemesProvider>
     </NextUIProvider>
   );
 }
