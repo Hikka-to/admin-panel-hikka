@@ -3,8 +3,6 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface JwtTokenContentDto {
-    email: string;
-    id: string;
-    role: string;
+export class CreateAnimeVideoKindDto {
+    name: string;
 }

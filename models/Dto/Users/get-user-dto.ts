@@ -7,6 +7,5 @@ import { ModelDto } from "../../Shared/model-dto";
 
 export interface GetUserDto extends ModelDto {
     email: string;
-    password: string;
-    role: string;
+    roles: string[];
 }

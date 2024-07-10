@@ -3,8 +3,8 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-export interface JwtTokenContentDto {
-    email: string;
-    id: string;
-    role: string;
+import { ModelDto } from "../../../Shared/model-dto";
+
+export class GetAnimeVideoKindDto implements ModelDto {
+    name: string;
 }
