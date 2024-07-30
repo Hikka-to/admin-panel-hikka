@@ -7,6 +7,7 @@ import {Providers} from "./providers";
 import {siteConfig} from "@/config/site";
 import {fontSans} from "@/config/fonts";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import React from "react";
 
 export const metadata: Metadata = {
     title: {

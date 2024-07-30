@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import {Divider} from "@nextui-org/divider";
 import {Button, Input, Link} from "@nextui-org/react";
+import PasswordInput from "@/components/inputs/PasswordInput";
 
 const LoginPage = () => {
     const route = useRouter();
@@ -13,17 +14,6 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const {status} = useSession();
-
-    useEffect(() => {
-        if (status == "authenticated")
-            redirect(
-                '/',
-                RedirectType.replace
-            );
-
-        if (status == "loading") setIsLoading(true);
-        else setIsLoading(false);
-    }, [status]);
 
     const onSubmit = async (e: any) => {
         setIsLoading(true);
@@ -46,6 +36,17 @@ const LoginPage = () => {
 
         setIsLoading(false);
     };
+
+    useEffect(() => {
+        if (status == "authenticated")
+            redirect(
+                '/',
+                RedirectType.replace
+            );
+
+        if (status == "loading") setIsLoading(true);
+        else setIsLoading(false);
+    }, [status]);
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -84,8 +85,7 @@ const LoginPage = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <Input
-                            type="password"
+                        <PasswordInput
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

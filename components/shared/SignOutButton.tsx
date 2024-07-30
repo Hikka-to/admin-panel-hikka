@@ -10,8 +10,8 @@ const SignOutButton = () => {
             <form
                 action={async () => {
                     await signOut({
-                        redirect: false,
-                        callbackUrl: '/auth/login',
+                        redirect: true,
+                        callbackUrl: '/auth/login'
                     });
                 }}
             >

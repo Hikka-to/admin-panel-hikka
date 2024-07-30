@@ -3,21 +3,61 @@
 import React, {useEffect, useState} from 'react';
 import {redirect, RedirectType, useRouter} from 'next/navigation';
 import {Button, Input, Link} from '@nextui-org/react';
-import UserService from '@/service/UserService';
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import {Divider} from "@nextui-org/divider";
-import {useSession} from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
+import PasswordInput from "@/components/inputs/PasswordInput";
+import axios from "axios";
 
 const RegisterPage = () => {
     const router = useRouter();
     const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [showError, setShowError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const {status} = useSession();
+
+    // Errors
+    const [error, setError] = useState('');
+    const [showConfirmPasswordError, setShowConfirmPasswordError] = useState(false);
+
+    const handleSubmit = async (e: any) => {
+        setIsLoading(true);
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            setShowConfirmPasswordError(true);
+            setIsLoading(false);
+            return;
+        }
+        try {
+            const result = await axios.post('/api/registrate', {
+                email,
+                password,
+                username,
+                role: 'Admin'
+            });
+            if (result.status !== 200) {
+                setError('Failed to register');
+            } else {
+                const signInResult = await signIn('credentials', {
+                    email,
+                    password,
+                    callbackUrl: '/',
+                    redirect: true
+                });
+                if (signInResult?.error) {
+                    setError('Failed to login');
+                } else {
+                    router.push('/');
+                }
+            }
+        } catch (e) {
+            const error = e as Error;
+            setError(error.message);
+        }
+        setIsLoading(false);
+    };
 
     useEffect(() => {
         if (status == "authenticated")
@@ -29,22 +69,6 @@ const RegisterPage = () => {
         if (status == "loading") setIsLoading(true);
         else setIsLoading(false);
     }, [status]);
-
-    const handleSubmit = async (e: any) => {
-        setIsLoading(true);
-        e.preventDefault();
-        if (password !== confirmPassword) {
-            setShowError(true);
-            return;
-        }
-        const result = await UserService.registerUser({email, password, userName: username, role: 'Admin'});
-        if (result.status === 200) {
-            setShowError(true);
-        } else {
-            router.push('/');
-        }
-        setIsLoading(false);
-    };
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -90,18 +114,21 @@ const RegisterPage = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <Input
+                        <PasswordInput
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <Input
+                        <PasswordInput
                             placeholder="Confirm Password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
+                            isInvalid={showConfirmPasswordError}
+                            errorMessage="Passwords do not match"
                         />
+                        {error && <p className="text-red-500 w-full">{error}</p>}
                         <Button
                             color="primary"
                             type="submit"

@@ -26,14 +26,14 @@ class UserService extends Service {
 
     async registerUser(model: UserRegistrationDto): Promise<AxiosResponse> {
         try {
-            return await this.axiosInstance.post("registerAdmin", model);
+            return await this.axiosInstance.post("registration", model);
         } catch (error) {
             const axiosError = error as AxiosError;
             if (axiosError.response) {
                 // The client was given an error response (5xx, 4xx)
                 if (axiosError.response.status === 404) {
                     // Handle 404 error specifically
-                    throw new Error("Resource not found. Please check the URL." + axiosError.toJSON());
+                    throw new Error(`Resource not found. Please check the URL "${(axiosError.request as XMLHttpRequest).responseURL}".`);
                 }
             } else if (axiosError.request) {
                 // The client never received a response, or the request was never left
