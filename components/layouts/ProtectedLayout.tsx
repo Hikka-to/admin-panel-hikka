@@ -23,7 +23,7 @@ const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({children}) => {
     return (
         <>
             {
-                status == "loading" ?
+                status == "loading" && !path.startsWith("/auth") ?
                     <LoadingScreen/> :
                     children
             }
