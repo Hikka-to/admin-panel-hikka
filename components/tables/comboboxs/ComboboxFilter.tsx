@@ -1,10 +1,10 @@
 "use client"
-import { updateSearchParams } from '@/lib/utils'
-import { ComboxProps } from '@/types/combobox/ComboxProps'
-import { Select, SelectItem } from '@nextui-org/select'
+import {updateSearchParams} from '@/lib/utils'
+import {ComboxProps} from '@/types/combobox/ComboxProps'
+import {Select, SelectItem} from '@nextui-org/select'
 import React from 'react'
 
-const ComboboxFilter = ({ props }: { props: ComboxProps }) => {
+const ComboboxFilter = ({props}: { props: ComboxProps }) => {
     return (
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
             <Select
