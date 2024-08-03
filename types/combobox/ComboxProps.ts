@@ -1,8 +1,8 @@
-import { ValueForCombobox } from "./ValueForCombobox";
+import {ValueForCombobox} from "./ValueForCombobox";
 
 
 export interface ComboxProps {
-    listOfValue:ValueForCombobox[];
+    listOfValue: ValueForCombobox[];
     placeholder: string;
-    label:string;
+    label: string;
 }
