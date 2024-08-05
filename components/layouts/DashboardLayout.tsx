@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react';
 import DashboardClient from './sliderComponents/DashboardClient';
-import LoadingScreen from '../shared/screens/LoadingScreen';
+import LoadingCircle from '../shared/skeletons/LoadingCircle';
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
@@ -10,7 +10,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({children}) => {
 
     return (
         <DashboardClient>
-            <Suspense fallback={<LoadingScreen/>}>
+            <Suspense fallback={<LoadingCircle/>}>
                 {children}
             </Suspense>
         </DashboardClient>
