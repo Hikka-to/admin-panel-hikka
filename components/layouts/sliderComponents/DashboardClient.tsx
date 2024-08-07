@@ -5,12 +5,14 @@ import {usePathname} from 'next/navigation';
 import React from 'react'
 import SliderButton from './SliderButton';
 import SignOutButton from '@/components/shared/SignOutButton';
+import { CollapseItems } from '@/components/sidebar/CollapseItems';
+import SidebarButtonType from '@/types/sidebar/SidebarButtonType';
 
 interface DashboardClientProps {
     children: React.ReactNode;
 }
 
-const listOfUrls = [
+const listOfUrls : SidebarButtonType[] = [
     {
         text: "Categories",
         url: "/tables/CategoryTable"
@@ -36,19 +38,18 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
     if (!pathname.startsWith('/auth/')) {
         return (
             <div className={"flex h-[100vh] bg-background "}>
-                <div className={"dark:bg-gray-800 text-white w-64 p-4"}>
+                <div className={"dark:bg-gray-800 text-white w-64 p-4 "}>
                     <Input
-                        className='bg'
+                        className='bg mb-3'
+
                     >
                     </Input>
-                    {
-                        listOfUrls.map((e, idx) => (
-                            <SliderButton key={idx}
-                                          text={e.text}
-                                          url={e.url}
-                            />
-                        ))
-                    }
+                    <CollapseItems
+                    title='test'
+                    items={listOfUrls}
+                    />
+                    
+                   
                     <SignOutButton/>
                 </div>
                 <main className={"w-full  h-full"}>

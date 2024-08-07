@@ -1,3 +1,4 @@
+"use client"
 import React, {Suspense} from 'react';
 import DashboardClient from './sliderComponents/DashboardClient';
 import LoadingCircle from '../shared/skeletons/LoadingCircle';
