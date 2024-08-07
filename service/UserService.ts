@@ -64,7 +64,7 @@ class UserService extends Service {
 
 
     async loginUser(model: UserLoginDto): Promise<AxiosResponse<LoginResponseUserDto>> {
-        return this.axiosInstance.post("login", model);
+        return this.axiosInstance.post("loginAdmin", model);
     }
 
 }
