@@ -26,7 +26,7 @@ const LoginPage = () => {
             },
         );
 
-        if (result?.error) {
+        if (result?.status != 200) {
             setErrorMessage("Invalid credentials. Please try again.");
         } else {
             route.push('/');
