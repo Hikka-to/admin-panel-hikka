@@ -2,6 +2,7 @@
 import {decodeJwtToken, signJwtAccessToken} from '@/lib/jwtTokenUtils';
 import {UserLoginDto} from '@/models/Dto/Users/user-login-dto';
 import UserService from '@/service/UserService';
+import { NextResponse } from 'next/server';
 
 // Define the POST handler for the login route
 export async function POST(body: Request) {
@@ -21,5 +22,5 @@ export async function POST(body: Request) {
 
 
         return new Response(JSON.stringify(result));
-    } else return new Response(JSON.stringify(null));
+    } else return NextResponse.json({error: "invalid credentials" }, {status: 401});
 }
