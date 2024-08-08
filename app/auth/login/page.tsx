@@ -22,11 +22,9 @@ const LoginPage = () => {
                 email,
                 password,
                 callbackUrl: '/',
-                redirect: true,
+                redirect: false,
             },
         );
-
-        console.log(result);
 
         if (result?.error) {
             setErrorMessage("Invalid credentials. Please try again.");

@@ -37,7 +37,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
 
     if (!pathname.startsWith('/auth/')) {
         return (
-            <div className={"flex h-[100vh] bg-background "}>
+            <div className={"flex h-full bg-background overflow-hidden "}>
                 <div className={"dark:bg-gray-800 text-white w-64 p-4 "}>
                     <Input
                         className='bg mb-3'
@@ -52,7 +52,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
                    
                     <SignOutButton/>
                 </div>
-                <main className={"w-full  h-full"}>
+                <main className={"w-full"}>
                     {children}
                 </main>
             </div>
