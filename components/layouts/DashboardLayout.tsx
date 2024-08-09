@@ -1,20 +1,17 @@
-import React, {Suspense} from 'react';
-import DashboardClient from './sliderComponents/DashboardClient';
-import LoadingCircle from '../shared/skeletons/LoadingCircle';
+import React from "react";
+import DashboardClient from "./sliderComponents/DashboardClient";
 
 interface DashboardLayoutProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({children}) => {
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
-    return (
-        <DashboardClient>
-            <Suspense fallback={<LoadingCircle/>}>
-                {children}
-            </Suspense>
-        </DashboardClient>
-    );
+	return (
+		<DashboardClient>
+			{children}
+		</DashboardClient>
+	);
 };
 
 export default DashboardLayout;
