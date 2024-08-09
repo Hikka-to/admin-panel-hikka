@@ -44,7 +44,7 @@ const RegisterPage = () => {
                     email,
                     password,
                     callbackUrl: '/',
-                    redirect: true
+                    redirect: false
                 });
                 if (signInResult?.error) {
                     setError('Failed to login');

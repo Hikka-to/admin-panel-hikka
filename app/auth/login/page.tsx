@@ -89,7 +89,7 @@ const LoginPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+                        {errorMessage && <p className="text-red-500 w-full">{errorMessage}</p>}
                         <Button
                             color="primary"
                             type="submit"
