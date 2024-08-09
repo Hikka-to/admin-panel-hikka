@@ -77,7 +77,15 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
 	}, [isMobileOpened, isOpened, width]);
 
 	return (
-		<div className="flex flex-col h-screen bg-background overflow-hidden">
+		<div className="flex flex-col h-screen bg-background overflow-hidden box-border">
+			<main className={
+				"w-screen h-screen pt-[112px] overflow-y-scroll box-border transition-all duration-500 md:pt-0" +
+				(!isOpened ? " md:pt-[112px]" : " md:pl-[296px]")
+			}>
+				<div className="max-w-full h-auto overflow-hidden">
+					{children}
+				</div>
+			</main>
 			<Card isBlurred
 						ref={sidebarRef}
 						onTransitionEnd={transitionEndHandler}
@@ -185,9 +193,6 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
 					/>
 				</CardBody>
 			</Card>
-			<main className={"w-full mt-[72px] md:mt-0 md:ml-[296px]"}>
-				{children}
-			</main>
 		</div>
 	);
 };

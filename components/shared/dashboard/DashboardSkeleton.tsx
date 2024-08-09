@@ -5,6 +5,13 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 export default function DashboardSkeleton() {
 	return (
 		<div className={"flex h-screen bg-background overflow-hidden "}>
+			<main className={
+				"w-screen h-screen pt-[112px] overflow-y-scroll box-border transition-all duration-500 md:pt-0 md:pl-[296px]"
+			}>
+				<div className="max-w-full h-auto overflow-hidden">
+
+				</div>
+			</main>
 			<Card isBlurred
 						className={
 							"h-[72px] " +
@@ -33,9 +40,6 @@ export default function DashboardSkeleton() {
 					<Skeleton className="rounded-md h-[44px]" />
 				</CardBody>
 			</Card>
-			<main className={"w-full"}>
-
-			</main>
 		</div>
 	);
 }
