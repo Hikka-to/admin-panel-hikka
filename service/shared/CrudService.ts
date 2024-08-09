@@ -10,11 +10,20 @@ export abstract class CrudService<
     UpdateModelDto extends ModelDto,
 > extends Service {
 
+    public ModelName: string;
+
+    protected constructor(modelName:string )
+    {
+        super(process.env.NEXT_PUBLIC_BASE_URL as string);
+        this.ModelName = modelName;
+
+    }
+
 
     public async getAll(
         paginationDto: FilterPaginationDto
     ): Promise<AxiosResponse<ReturnPageDto<GetModelDto>>> {
-        return this.axiosInstance.get("", {params: paginationDto});
+        return this.axiosInstance.post(`${this.ModelName}/GetAll`, {params: paginationDto});
     }
 
     public async getById(id: number): Promise<AxiosResponse<GetModelDto>> {

@@ -58,6 +58,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6"
+    "@types/jsonwebtoken": "^9.0.6",
+    "ts-patch": "^3.2.1"
   }
 }

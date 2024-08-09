@@ -8,31 +8,37 @@ import React from 'react'
 
 
 
-const ModelTable = async <
-TGetModelDto extends ModelDto,
-TCreateDto,
-TUpdateDto extends ModelDto,
-TService extends CrudService<TGetModelDto, TCreateDto, TUpdateDto>>(service: TService) => {
+const ModelTable =  <
+  TGetModelDto extends ModelDto,
+  TCreateDto,
+  TUpdateDto extends ModelDto,
+  TService extends CrudService<TGetModelDto, TCreateDto, TUpdateDto>>({ props }: {
+    props: {
+      Service: TService
+    }
+  }) => {
 
-  let columns : string[] = keys<TGetModelDto>() as any as string[];
+  let columns = keys<TGetModelDto>();
 
 
   //const items:TModel[]
 
-  return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column} >
-            {column}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody>
-      <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
-      </TableBody>
-    </Table>
-  )
+  return <p>table</p>
+
+  //return (
+    //<Table aria-label="Example table with custom cells">
+      //<TableHeader columns={columns}>
+        //{(column) => (
+          //<TableColumn key={column} >
+            //{column}
+          //</TableColumn>
+        //)}
+      //</TableHeader>
+      //<TableBody>
+        //<TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+      //</TableBody>
+    //</Table>
+  //)
 }
 
 export default ModelTable;

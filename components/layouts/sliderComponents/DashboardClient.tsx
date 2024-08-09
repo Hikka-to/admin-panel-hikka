@@ -14,8 +14,8 @@ interface DashboardClientProps {
 
 const listOfUrls : SidebarButtonType[] = [
     {
-        text: "Categories",
-        url: "/tables/CategoryTable"
+        text: "Countries",
+        url: "/tables/country-table"
     },
     {
         text: "Dishes",

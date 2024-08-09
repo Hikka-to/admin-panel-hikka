@@ -21,7 +21,8 @@
     "plugins": [
       {
         "name": "next"
-      }
+      },
+      { "transform": "ts-transformer-keys/transformer" }
     ],
     "paths": {
       "@/*": [
