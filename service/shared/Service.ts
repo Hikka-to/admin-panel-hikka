@@ -7,7 +7,7 @@ export default abstract class Service {
 	public constructor(addUrl: string) {
 		this.axiosInstance = axios.create({
 			headers: {},
-			baseURL: process.env.BASE_URL + addUrl,
+			baseURL: process.env.NEXT_PUBLIC_BASE_URL + addUrl,
 			timeout: 5000,
 			httpsAgent: axiosAgent
 		});
