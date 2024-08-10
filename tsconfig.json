@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "transform": "ts-transformer-keys/transformer"
+      }
+    ],
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -10,7 +18,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -18,11 +26,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": [
         "./*"
