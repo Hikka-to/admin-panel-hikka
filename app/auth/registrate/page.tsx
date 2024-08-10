@@ -1,26 +1,27 @@
-"use client"
+"use client";
 
-import React, {useEffect, useState} from 'react';
-import {redirect, RedirectType, useRouter} from 'next/navigation';
-import {Button, Input, Link} from '@nextui-org/react';
-import {Card, CardBody, CardHeader} from "@nextui-org/card";
-import {Divider} from "@nextui-org/divider";
-import {signIn, useSession} from "next-auth/react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button, Input, Link } from "@nextui-org/react";
+import { CardBody, CardHeader } from "@nextui-org/card";
+import { Divider } from "@nextui-org/divider";
+import { signIn } from "next-auth/react";
 import PasswordInput from "@/components/inputs/PasswordInput";
 import axios from "axios";
+import { useAuth } from "@/hooks/auth";
 
 const RegisterPage = () => {
-    const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const {status} = useSession();
+	const router = useRouter();
+	const [email, setEmail] = useState("");
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const { status } = useAuth({ redirect: true });
 
-    // Errors
-    const [error, setError] = useState('');
-    const [showConfirmPasswordError, setShowConfirmPasswordError] = useState(false);
+	// Errors
+	const [error, setError] = useState("");
+	const [showConfirmPasswordError, setShowConfirmPasswordError] = useState(false);
 
     const handleSubmit = async (e: any) => {
         setIsLoading(true);
@@ -59,88 +60,80 @@ const RegisterPage = () => {
         setIsLoading(false);
     };
 
-    useEffect(() => {
-        if (status == "authenticated")
-            redirect(
-                '/',
-                RedirectType.replace
-            );
+	useEffect(() => {
+		if (status == "loading") setIsLoading(true);
+		else setIsLoading(false);
+	}, [status]);
 
-        if (status == "loading") setIsLoading(true);
-        else setIsLoading(false);
-    }, [status]);
-
-    return (
-        <div className="flex justify-center items-center h-screen">
-            <Card className="max-w-3xl flex-1">
-                <CardHeader
-                    className='
-                        flex
-                        flex-wrap
-                        space-y-2
-                        justify-between'>
-                    <h1 className="text-2xl font-bold">Registration</h1>
-                    <Button
-                        href="/auth/login"
-                        as={Link}
-                        showAnchorIcon
-                        variant="solid"
-                        className="!mt-0"
-                    >
-                        Login
-                    </Button>
-                </CardHeader>
-                <Divider/>
-                <CardBody>
-                    <form
-                        onSubmit={handleSubmit}
-                        className='
-                            flex
-                            flex-wrap
-                            space-y-2
-                            justify-between'
-                    >
-                        <Input
-                            type="text"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                        <Input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <PasswordInput
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <PasswordInput
-                            placeholder="Confirm Password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            isInvalid={showConfirmPasswordError}
-                            errorMessage="Passwords do not match"
-                        />
-                        {error && <p className="text-red-500 w-full">{error}</p>}
-                        <Button
-                            color="primary"
-                            type="submit"
-                            isLoading={isLoading}
-                        >
-                            Register
-                        </Button>
-                    </form>
-                </CardBody>
-            </Card>
-        </div>
-    );
+	return (
+		<>
+			<CardHeader
+				className="
+          	flex
+          	flex-wrap
+          	space-y-2
+          	justify-between">
+				<h1 className="text-2xl font-bold">Registration</h1>
+				<Button
+					href="/auth/login"
+					as={Link}
+					showAnchorIcon
+					variant="solid"
+					className="!mt-0"
+				>
+					Login
+				</Button>
+			</CardHeader>
+			<Divider />
+			<CardBody>
+				<form
+					onSubmit={handleSubmit}
+					className="
+            	flex
+            	flex-wrap
+            	space-y-2
+            	justify-between"
+				>
+					<Input
+						type="text"
+						placeholder="Username"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						required
+					/>
+					<Input
+						type="email"
+						placeholder="Email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						required
+					/>
+					<PasswordInput
+						placeholder="Password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						required
+					/>
+					<PasswordInput
+						placeholder="Confirm Password"
+						value={confirmPassword}
+						onChange={(e) => setConfirmPassword(e.target.value)}
+						required
+						isInvalid={showConfirmPasswordError}
+						errorMessage="Passwords do not match"
+					/>
+					{error && <p className="text-red-500 w-full">{error}</p>}
+					<Button
+						color="primary"
+						type="submit"
+						isLoading={isLoading}
+					>
+						Register
+					</Button>
+				</form>
+			</CardBody>
+		</>
+	);
 };
 
 export default RegisterPage;

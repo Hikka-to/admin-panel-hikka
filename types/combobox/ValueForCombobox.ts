@@ -1,4 +1,4 @@
 export interface ValueForCombobox {
-    label: string;
-    value: string;
+	label: string;
+	value: string;
 }
