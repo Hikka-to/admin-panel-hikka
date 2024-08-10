@@ -63,6 +63,9 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6"
+    "@types/jsonwebtoken": "^9.0.6",
+    "ts-loader": "^9.5.1",
+    "ts-patch": "^3.2.1",
+    "ts-transformer-keys": "^0.4.4"
   }
 }
