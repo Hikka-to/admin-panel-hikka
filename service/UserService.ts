@@ -1,11 +1,11 @@
 import { AxiosError, AxiosResponse } from "axios";
 import Service from "./shared/Service";
-import { FilterPaginationDto } from "@/models/Dto/SharedDtos/filter-pagination-dto";
-import { ReturnPageDto } from "@/models/Shared/return-page-dto";
-import { GetUserDto } from "@/models/Dto/Users/get-user-dto";
-import { UserRegistrationDto } from "@/models/Dto/Users/user-registration-dto";
-import { UserLoginDto } from "@/models/Dto/Users/user-login-dto";
-import { LoginResponseUserDto } from "@/models/ResponseDto/login-response-user-dto";
+import { FilterPaginationDto } from "hikka-ts-dtos/Dto/SharedDtos/filter-pagination-dto";
+import { ReturnPageDto } from "hikka-ts-dtos/Shared/return-page-dto";
+import { GetUserDto } from "hikka-ts-dtos/Dto/Users/get-user-dto";
+import { UserLoginDto } from "hikka-ts-dtos/Dto/Users/user-login-dto";
+import { LoginResponseUserDto } from "hikka-ts-dtos/ResponseDto/login-response-user-dto";
+import { UserRegistrationDto } from "hikka-ts-dtos/Dto/Users/user-registration-dto";
 
 
 class UserService extends Service {

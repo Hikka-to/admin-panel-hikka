@@ -1,19 +1,4 @@
-module.exports = (phase, { defaultConfig }) => {
-	const config = {
-		webpack: (config, options) => {
-			config.module.rules.push({
-				test: /\.tsx?$/,
-				loader: "ts-loader",
-				options: {
-					compiler: "ts-patch/compiler"
-				}
-			});
+/** @type {import("next").NextConfig} */
+const nextConfig = {};
 
-			return config;
-		}
-	};
-
-	return Object.assign(config, {
-		// constants to process.env.
-	});
-};
+module.exports = nextConfig;

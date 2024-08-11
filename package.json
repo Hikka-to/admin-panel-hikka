@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --turbo",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
   },
   "dependencies": {
@@ -50,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-unused-imports": "^3.2.0",
     "framer-motion": "~11.1.1",
+    "hikka-ts-dtos": "github:Denys1209/HikkaTsDtos",
     "intl-messageformat": "^10.5.14",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
@@ -60,14 +61,9 @@
     "react-dom": "18.3.1",
     "tailwind-variants": "0.1.20",
     "tailwindcss": "3.4.3",
-    "ts-transformer-keys": "^0.4.4",
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
-    "ts-loader": "^9.5.1",
-    "ts-patch": "^3.2.1",
-    "ts-transformer-keys": "^0.4.4"
-
+    "@types/jsonwebtoken": "^9.0.6"
   }
 }

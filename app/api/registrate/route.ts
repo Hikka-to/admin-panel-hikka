@@ -1,6 +1,6 @@
-import { UserRegistrationDto } from "@/models/Dto/Users/user-registration-dto";
 import UserService from "@/service/UserService";
 import { AxiosError } from "axios";
+import { UserRegistrationDto } from "hikka-ts-dtos/Dto/Users/user-registration-dto";
 
 
 export async function POST(params: Request) {
