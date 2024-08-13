@@ -3,7 +3,7 @@ import { decodeJwtToken, signJwtAccessToken } from "@/lib/jwtTokenUtils";
 import UserService from "@/service/UserService";
 import { NextResponse } from "next/server";
 import { AxiosError } from "axios";
-import { UserLoginDto } from "hikka-ts-dtos/Dto/Users/user-login-dto";
+import { UserLoginDto } from "hikka-ts-dtos";
 
 // Define the POST handler for the login route
 export async function POST(body: Request) {

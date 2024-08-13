@@ -50,7 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-unused-imports": "^3.2.0",
     "framer-motion": "~11.1.1",
-    "hikka-ts-dtos": "github:Denys1209/HikkaTsDtos",
+    "hikka-ts-dtos": "^0.0.4",
     "intl-messageformat": "^10.5.14",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",

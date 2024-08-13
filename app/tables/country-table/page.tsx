@@ -1,9 +1,7 @@
 import ModelTable from "@/components/tables/ModelTable";
 import { CountryService } from "@/service/crudServices/CountryService";
 import React from "react";
-import { GetCountryDto, getCountryDtoProperties } from "hikka-ts-dtos/Dto/WithSeoAddition/Countries/get-country-dto";
-import { CreateCountryDto } from "hikka-ts-dtos/Dto/WithSeoAddition/Countries/create-country-dto";
-import { UpdateCountryDto } from "hikka-ts-dtos/Dto/WithSeoAddition/Countries/update-country-dto";
+import { CreateCountryDto, GetCountryDto, UpdateCountryDto } from "hikka-ts-dtos";
 
 const page = () => {
 
@@ -15,8 +13,7 @@ const page = () => {
 			CountryService
 		>
 		props={{
-			service: new CountryService(),
-			columns: getCountryDtoProperties
+			service: new CountryService()
 		}
 		}
 

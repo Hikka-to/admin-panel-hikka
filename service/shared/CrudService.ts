@@ -1,8 +1,6 @@
-import { FilterPaginationDto } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import Service from "./Service";
-import { ReturnPageDto } from "@/models/Shared/return-page-dto";
 import { AxiosResponse } from "axios";
-import { ModelDto } from "@/models/Shared/model-dto";
+import { FilterPaginationDto, ModelDto, ReturnPageDto } from "hikka-ts-dtos";
 
 export abstract class CrudService<
 	GetModelDto extends ModelDto,

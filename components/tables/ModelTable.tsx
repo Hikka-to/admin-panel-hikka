@@ -1,6 +1,6 @@
 import { CrudService } from "@/service/shared/CrudService";
 import React from "react";
-import { ModelDto } from "hikka-ts-dtos/Shared/model-dto";
+import { ModelDto } from "hikka-ts-dtos";
 
 
 const ModelTable = <
