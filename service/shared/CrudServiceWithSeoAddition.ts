@@ -1,16 +1,17 @@
 import { CrudService } from "./CrudService";
-import { CreateDtoWithSeoAddition, GetDtoWithSeoAddition, UpdateDtoWithSeoAddition } from "hikka-ts-dtos";
+import { GetDtoWithSeoAddition } from "@/models/Shared/get-dto-with-seo-addition";
+import { CreateDtoWithSeoAddition } from "@/models/Shared/create-dto-with-seo-addition";
+import { UpdateDtoWithSeoAddition } from "@/models/Shared/update-dto-with-seo-addition";
 
 
 export abstract class CrudServiceWithSeoAddition<
-	GetModelDto extends GetDtoWithSeoAddition,
-	CreateModelDto extends CreateDtoWithSeoAddition,
-	UpdateModelDto extends UpdateDtoWithSeoAddition,
+	TGetModelDto extends GetDtoWithSeoAddition,
+	TCreateModelDto extends CreateDtoWithSeoAddition,
+	TUpdateModelDto extends UpdateDtoWithSeoAddition,
 > extends CrudService<
-	GetModelDto,
-	CreateModelDto,
-	UpdateModelDto
-
+	TGetModelDto,
+	TCreateModelDto,
+	TUpdateModelDto
 > {
 
 }
