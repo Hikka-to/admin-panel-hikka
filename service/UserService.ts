@@ -1,12 +1,12 @@
 import { AxiosError, AxiosResponse } from "axios";
 import Service from "./shared/Service";
-import {
-	FilterPaginationDto,
-	GetUserDto,
-	LoginResponseUserDto,
-	ReturnPageDto, UserLoginDto,
-	UserRegistrationDto
-} from "hikka-ts-dtos";
+import { z } from "zod";
+import { FilterPaginationDto, filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
+import { ReturnPageDto } from "@/models/Shared/return-page-dto";
+import { GetUserDto } from "@/models/Dto/Users/get-user-dto";
+import { UserRegistrationDto, userRegistrationDtoSchema } from "@/models/Dto/Users/user-registration-dto";
+import { LoginResponseUserDto } from "@/models/ResponseDto/login-response-user-dto";
+import { UserLoginDto, userLoginDtoSchema } from "@/models/Dto/Users/user-login-dto";
 
 
 class UserService extends Service {
@@ -18,14 +18,17 @@ class UserService extends Service {
 	async getAllUsers(
 		paginationDto: FilterPaginationDto
 	): Promise<AxiosResponse<ReturnPageDto<GetUserDto>>> {
+		filterPaginationDtoSchema.parse(paginationDto);
 		return this.axiosInstance.get("", { params: paginationDto });
 	}
 
-	async getUserById(id: number): Promise<AxiosResponse<GetUserDto>> {
+	async getUserById(id: string): Promise<AxiosResponse<GetUserDto>> {
+		z.string().uuid().parse(id);
 		return this.axiosInstance.get(`${id}`);
 	}
 
 	async registerUser(model: UserRegistrationDto): Promise<AxiosResponse> {
+		userRegistrationDtoSchema.parse(model);
 		try {
 			return await this.axiosInstance.post("registration", model);
 		} catch (error) {
@@ -59,12 +62,14 @@ class UserService extends Service {
 		return this.axiosInstance.post("reset-password", request);
 	}
 
-	async deleteUser(id: number): Promise<AxiosResponse> {
+	async deleteUser(id: string): Promise<AxiosResponse> {
+		z.string().uuid().parse(id);
 		return this.axiosInstance.delete(`${id}`);
 	}
 
 
 	async loginUser(model: UserLoginDto): Promise<AxiosResponse<LoginResponseUserDto>> {
+		userLoginDtoSchema.parse(model);
 		return this.axiosInstance.post("loginAdmin", model);
 	}
 

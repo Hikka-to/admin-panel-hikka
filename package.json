@@ -50,7 +50,6 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-unused-imports": "^3.2.0",
     "framer-motion": "~11.1.1",
-    "hikka-ts-dtos": "^0.1.0",
     "intl-messageformat": "^10.5.14",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
@@ -61,7 +60,8 @@
     "react-dom": "18.3.1",
     "tailwind-variants": "0.1.20",
     "tailwindcss": "3.4.3",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6"

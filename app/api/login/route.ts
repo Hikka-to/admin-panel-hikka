@@ -3,11 +3,10 @@ import { decodeJwtToken, signJwtAccessToken } from "@/lib/jwtTokenUtils";
 import UserService from "@/service/UserService";
 import { NextResponse } from "next/server";
 import { AxiosError } from "axios";
-import { UserLoginDto } from "hikka-ts-dtos";
+import { UserLoginDto } from "@/models/Dto/Users/user-login-dto";
 
 // Define the POST handler for the login route
 export async function POST(body: Request) {
-
 	try {
 		const model: UserLoginDto = await body.json();
 		const user = await UserService.loginUser(model);

@@ -7,6 +7,11 @@ import { Divider } from "@nextui-org/divider";
 import { Button, Input, Link } from "@nextui-org/react";
 import PasswordInput from "@/components/inputs/PasswordInput";
 import { useAuth } from "@/hooks/auth";
+import {
+	getCommentReportTypeDtoSchema
+} from "@/models/Dto/WithoutSeoAddition/CommentReportTypes/get-comment-report-type-dto";
+
+const test = getCommentReportTypeDtoSchema;
 
 const LoginPage = () => {
 	const route = useRouter();

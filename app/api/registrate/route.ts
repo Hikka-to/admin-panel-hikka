@@ -1,12 +1,11 @@
 import UserService from "@/service/UserService";
 import { AxiosError } from "axios";
-import { UserRegistrationDto } from "hikka-ts-dtos";
-
+import { UserRegistrationDto } from "@/models/Dto/Users/user-registration-dto";
 
 export async function POST(params: Request) {
 	try {
 		const model: UserRegistrationDto = await params.json();
-		var user = await UserService.registerUser(model);
+		const user = await UserService.registerUser(model);
 		return new Response(JSON.stringify(user.data), {
 			status: user.status,
 			statusText: user.statusText

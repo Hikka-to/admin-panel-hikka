@@ -1,16 +1,15 @@
 import { CrudService } from "@/service/shared/CrudService";
 import React from "react";
-import { ModelDto } from "hikka-ts-dtos";
+import { ModelDto } from "@/models/Shared/model-dto";
 
 
 const ModelTable = <
 	TGetModelDto extends ModelDto,
-	TCreateDto,
+	TCreateDto extends object,
 	TUpdateDto extends ModelDto,
 	TService extends CrudService<TGetModelDto, TCreateDto, TUpdateDto>>({ props }: {
 	props: {
-		service: TService,
-		columns?: (keyof TGetModelDto)[],
+		service: TService
 	}
 }) => {
 

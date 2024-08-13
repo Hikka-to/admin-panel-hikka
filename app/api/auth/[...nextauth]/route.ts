@@ -40,7 +40,7 @@ const handler = NextAuth({
 					// Check if accessToken exists in the response
 					return await res.json(); // Return the accessToken
 				} else {
-					throw new Error("Invalid credentials");
+					throw new Error(res.bodyUsed ? await res.text() : res.statusText);
 				}
 			}
 		})
