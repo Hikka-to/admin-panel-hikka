@@ -26,8 +26,10 @@ export const CollapseItems = ({ items, title }: Props) => {
 							"rounded-xl",
 							"active:scale-[0.98]",
 							"transition-transform px-3.5",
-							"hover:bg-background/55",
-							"dark:hover:bg-default-100/50"
+							"hover:bg-default-200/50 " +
+							"dark:hover:bg-default-100/50 " +
+							"active:bg-default-100/50 " +
+							"dark:active:bg-default-200/50"
 						],
 
 						title:

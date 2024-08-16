@@ -12,11 +12,10 @@ const SliderButton = ({ content }: { content: SidebarButtonType }) => {
 				"rounded-md " +
 				"justify-start " +
 				"bg-transparent " +
-				"dark:bg-transparent " +
-				"hover:bg-background/55 " +
+				"hover:bg-default-200/50 " +
 				"dark:hover:bg-default-100/50 " +
-				"active:bg-background/40 " +
-				"dark:active:bg-default-100/65"}
+				"active:bg-default-100/50 " +
+				"dark:active:bg-default-200/50"}
 		>
 			{content.text}
 		</Button>

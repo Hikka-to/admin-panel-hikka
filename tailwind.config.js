@@ -17,7 +17,6 @@ module.exports = {
 	},
 	darkMode: "class",
 	plugins: [
-		require("duo-icons/plugin"),
 		nextui({
 			prefix: "nextui", // prefix for themes variables
 			addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
