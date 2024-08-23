@@ -1,53 +1,75 @@
 import Service from "./Service";
-import { AxiosResponse } from "axios";
-import { z, ZodType } from "zod";
-import { ModelDto } from "@/models/Shared/model-dto";
-import { FilterPaginationDto, filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
-import { ReturnPageDto } from "@/models/Shared/return-page-dto";
+import {UnknownKeysParam, z, ZodError, ZodObject, ZodRawShape, ZodTypeAny} from "zod";
+import {ModelDto} from "@/models/Shared/model-dto";
+import {FilterPaginationDto, filterPaginationDtoSchema} from "@/models/Dto/SharedDtos/filter-pagination-dto";
+import {ReturnPageDto} from "@/models/Shared/return-page-dto";
+import {CreateResponseDto} from "@/models/ResponseDto/create-response-dto";
 
 export abstract class CrudService<
-	TGetModelDto extends ModelDto,
-	TCreateModelDto extends object,
-	TUpdateModelDto extends ModelDto,
+    TGetModelDto extends ModelDto,
+    TCreateModelDto extends object,
+    TUpdateModelDto extends ModelDto,
 > extends Service {
 
-	public modelName: string;
-	public getDtoSchema: ZodType<TGetModelDto>;
-	public createDtoSchema: ZodType<TCreateModelDto>;
-	public updateDtoSchema: ZodType<TUpdateModelDto>;
+    public modelName: string;
+    public getDtoSchema: ZodObject<ZodRawShape, UnknownKeysParam, ZodTypeAny, TGetModelDto>;
+    public createDtoSchema: ZodObject<ZodRawShape, UnknownKeysParam, ZodTypeAny, TCreateModelDto>;
+    public updateDtoSchema: ZodObject<ZodRawShape, UnknownKeysParam, ZodTypeAny, TUpdateModelDto>;
 
-	protected constructor(modelName: string, getDtoSchema: ZodType<TGetModelDto>, createDtoSchema: ZodType<TCreateModelDto>, updateDtoSchema: ZodType<TUpdateModelDto>) {
-		super(modelName);
-		this.modelName = modelName;
-		this.getDtoSchema = getDtoSchema;
-		this.createDtoSchema = createDtoSchema;
-		this.updateDtoSchema = updateDtoSchema;
-	}
+    protected constructor(
+        getDtoSchema: ZodObject<ZodRawShape, UnknownKeysParam, ZodTypeAny, TGetModelDto>,
+        createDtoSchema: ZodObject<ZodRawShape, UnknownKeysParam, ZodTypeAny, TCreateModelDto>,
+        updateDtoSchema: ZodObject<ZodRawShape, UnknownKeysParam, ZodTypeAny, TUpdateModelDto>,
+        modelName?: string) {
+        super(modelName);
+        this.modelName = modelName || this.constructor.name.replace(/^(.*?)(Service)?$/, "$1");
+        this.getDtoSchema = getDtoSchema;
+        this.createDtoSchema = createDtoSchema;
+        this.updateDtoSchema = updateDtoSchema;
+    }
 
-	public async getAll(
-		paginationDto: FilterPaginationDto
-	): Promise<AxiosResponse<ReturnPageDto<TGetModelDto>>> {
-		filterPaginationDtoSchema.parse(paginationDto);
-		return this.axiosInstance.post(`${this.modelName}/GetAll`, { params: paginationDto });
-	}
+    /**
+     * @throws {ZodError} If the paginationDto is invalid
+     * @throws {AxiosError} If the request fails
+     */
+    public async getAll(
+        paginationDto: FilterPaginationDto
+    ): Promise<ReturnPageDto<TGetModelDto>> {
+        return (await this.axiosInstance.post<ReturnPageDto<TGetModelDto>>(
+            `GetAll`,
+            filterPaginationDtoSchema.parse(paginationDto)))
+            .data;
+    }
 
-	public async getById(id: string): Promise<AxiosResponse<TGetModelDto>> {
-		z.string().uuid().parse(id);
-		return this.axiosInstance.get(`${id}`);
-	}
+    /**
+     * @throws {ZodError} If the id is invalid
+     * @throws {AxiosError} If the request fails
+     */
+    public async getById(id: string): Promise<TGetModelDto> {
+        return (await this.axiosInstance.get(`${z.string().uuid().parse(id)}`)).data;
+    }
 
-	public async update(dto: TUpdateModelDto): Promise<AxiosResponse> {
-		this.updateDtoSchema.parse(dto);
-		return this.axiosInstance.put("", dto);
-	}
+    /**
+     * @throws {ZodError} If the dto is invalid
+     * @throws {AxiosError} If the request fails
+     */
+    public async update(dto: TUpdateModelDto): Promise<void> {
+        await this.axiosInstance.put("", this.updateDtoSchema.parse(dto));
+    }
 
-	public async delete(id: string): Promise<AxiosResponse> {
-		z.string().uuid().parse(id);
-		return this.axiosInstance.delete(`${id}`);
-	}
+    /**
+     * @throws {ZodError} If the id is invalid
+     * @throws {AxiosError} If the request fails
+     */
+    public async delete(id: string): Promise<void> {
+        await this.axiosInstance.delete(`${z.string().uuid().parse(id)}`);
+    }
 
-	public async create(dto: TCreateModelDto): Promise<AxiosResponse> {
-		this.createDtoSchema.parse(dto);
-		return this.axiosInstance.post("", dto);
-	}
+    /**
+     * @throws {ZodError} If the dto is invalid
+     * @throws {AxiosError} If the request fails
+     */
+    public async create(dto: TCreateModelDto): Promise<CreateResponseDto> {
+        return (await this.axiosInstance.post<CreateResponseDto>("", this.createDtoSchema.parse(dto))).data;
+    }
 }

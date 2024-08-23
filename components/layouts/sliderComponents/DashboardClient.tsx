@@ -1,42 +1,25 @@
 "use client";
 import {signOut} from "next-auth/react";
 import React, {useEffect} from "react";
-import {CollapseItems} from "@/components/sidebar/CollapseItems";
-import SidebarButtonType from "@/types/sidebar/SidebarButtonType";
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import {Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, Tooltip} from "@nextui-org/react";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import {Icon} from "@iconify-icon/react";
 import SidebarSearch from "@/components/sidebar/search/SidebarSearch";
+import DashboardBody from "@/components/layouts/sliderComponents/DashboardBody";
+import {usePathname} from "next/navigation";
 
 interface DashboardClientProps {
     children: React.ReactNode;
 }
 
-const listOfUrls: SidebarButtonType[] = [
-    {
-        text: "Categories",
-        url: "/tables/CategoryTable"
-    },
-    {
-        text: "Dishes",
-        url: "/tables/DishTable"
-    },
-    {
-        text: "Users",
-        url: "/tables/UserTable"
-    },
-    {
-        text: "Orders",
-        url: "/tables/OrderTable"
-    }
-];
 
 const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
     const [isOpened, setIsOpened] = React.useState(true);
     const [isMobileOpened, setIsMobileOpened] = React.useState(false);
     const sidebarRef = React.useRef<HTMLDivElement>(null);
     const {width} = useWindowDimensions();
+    const path = usePathname();
 
     const signOutHandler = async () => {
         await signOut({
@@ -58,6 +41,10 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
     const transitionEndHandler = () => {
         const sidebarBody = sidebarRef.current!.children[1] as HTMLDivElement;
         sidebarBody.style.overflow = "";
+    };
+
+    const buttonPressHandler = () => {
+        setIsMobileOpened(false);
     };
 
     useEffect(() => {
@@ -104,12 +91,15 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
     }, [width, isOpened, isMobileOpened]);
 
     return (
-        <div className="flex flex-col h-screen bg-background overflow-hidden box-border">
+        <div className="flex flex-col h-screen overflow-hidden box-border">
             <main className={
                 "w-screen h-screen pt-[112px] overflow-y-scroll box-border transition-all duration-500 md:pt-0" +
                 (!isOpened ? " md:pt-[112px]" : " md:pl-[296px]")
             }>
-                <div className="max-w-full h-auto overflow-hidden">
+                <div className={
+                    "mr-5 max-w-full h-auto overflow-hidden m-5 mt-0 transition-all duration-500 md:mt-5" +
+                    (!isOpened ? " md:!mt-0" : " md:!ml-0")
+                }>
                     {children}
                 </div>
             </main>
@@ -131,6 +121,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
                     <Button
                         href="/"
                         as={Link}
+                        onPress={buttonPressHandler}
                         className={
                             "min-w-0 " +
                             "w-12 " +
@@ -205,10 +196,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({children}) => {
                         + (!isOpened ? " md:overflow-hidden" : " md:overflow-auto")
                     }>
                     <SidebarSearch showKbd={width >= 768}/>
-                    <CollapseItems
-                        title="test"
-                        items={listOfUrls}
-                    />
+                    <DashboardBody onButtonPress={buttonPressHandler}/>
                 </CardBody>
             </Card>
         </div>
