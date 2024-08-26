@@ -5,7 +5,7 @@
         "name": "next"
       }
     ],
-    "target": "es6",
+    "target": "es2020",
     "lib": [
       "dom",
       "dom.iterable",
