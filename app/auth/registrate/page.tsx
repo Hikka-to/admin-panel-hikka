@@ -23,42 +23,42 @@ const RegisterPage = () => {
 	const [error, setError] = useState("");
 	const [showConfirmPasswordError, setShowConfirmPasswordError] = useState(false);
 
-    const handleSubmit = async (e: any) => {
-        setIsLoading(true);
-        e.preventDefault();
-        if (password !== confirmPassword) {
-            setShowConfirmPasswordError(true);
-            setIsLoading(false);
-            return;
-        }
-        try {
-            const result = await axios.post('/api/registrate', {
-                email,
-                password,
-                username,
-                role: 'Admin'
-            });
-            if (result.status !== 200) {
-                setError('Failed to register');
-            } else {
-                const signInResult = await signIn('credentials', {
-                    email,
-                    password,
-                    callbackUrl: '/',
-                    redirect: false
-                });
-                if (signInResult?.error) {
-                    setError('Failed to login');
-                } else {
-                    router.push('/');
-                }
-            }
-        } catch (e) {
-            const error = e as Error;
-            setError(error.message);
-        }
-        setIsLoading(false);
-    };
+	const handleSubmit = async (e: any) => {
+		setIsLoading(true);
+		e.preventDefault();
+		if (password !== confirmPassword) {
+			setShowConfirmPasswordError(true);
+			setIsLoading(false);
+			return;
+		}
+		try {
+			const result = await axios.post("/api/registrate", {
+				email,
+				password,
+				username,
+				role: "Admin"
+			});
+			if (result.status !== 200) {
+				setError("Failed to register");
+			} else {
+				const signInResult = await signIn("credentials", {
+					email,
+					password,
+					callbackUrl: "/",
+					redirect: false
+				});
+				if (signInResult?.error) {
+					setError("Failed to login");
+				} else {
+					router.push("/");
+				}
+			}
+		} catch (e) {
+			const error = e as Error;
+			setError(error.message);
+		}
+		setIsLoading(false);
+	};
 
 	useEffect(() => {
 		if (status == "loading") setIsLoading(true);

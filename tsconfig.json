@@ -3,9 +3,6 @@
     "plugins": [
       {
         "name": "next"
-      },
-      {
-        "transform": "ts-transformer-keys/transformer"
       }
     ],
     "target": "es6",
@@ -18,7 +15,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": false,
+    "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -26,7 +23,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-
     "paths": {
       "@/*": [
         "./*"
