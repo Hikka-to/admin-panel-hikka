@@ -2,12 +2,9 @@
 import React from "react";
 import { Card } from "@nextui-org/card";
 
-export default function AuthLayout({ children }: {
-  Readonly<
-    children: React.ReactNode;
-})
->
-{
+export default function AuthLayout({ children }: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <main className="h-screen flex justify-center items-center md:p-32">
       <Card isBlurred
