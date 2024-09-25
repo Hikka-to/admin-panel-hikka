@@ -28,6 +28,7 @@ import { ZodBoolean, ZodDate, ZodError, ZodNumber, ZodString } from "zod";
 import TransparentInput from "@/components/inputs/TransparentInput";
 import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import useDebounceState from "@/hooks/useDebounceState";
+import ButtonForOpenUpdateSeoAdditionModalWindow from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindow";
 
 const classNames: SlotsToClasses<TableSlots> = {
   wrapper: [
@@ -125,11 +126,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
               </span>
           </Tooltip>
           {item.seoAddition !== null ? 
-            <Tooltip content="Edit seoAddition">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon/>
-              </span>
-            </Tooltip>
+            <ButtonForOpenUpdateSeoAdditionModalWindow seoAddition={item.seoAddition}/>
           : <></>}
         </div>
       );
