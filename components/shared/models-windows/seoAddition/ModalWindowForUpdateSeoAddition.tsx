@@ -2,10 +2,9 @@
 import { GetSeoAdditionDto } from '@/models/Dto/SeoAdditions/get-seo-addition-dto';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import ModalWindowlayout from '../ModalWindowlayout';
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
 import { SeoAdditionService } from '@/service/crudServices/SeoAdditionService';
-import { useAuth } from '@/hooks/auth';
+import { useAuth, useAuthService } from '@/hooks/auth';
 import { UpdateSeoAdditionDto, updateSeoAdditionDtoSchema } from '@/models/Dto/SeoAdditions/update-seo-addition-dto';
 import SocialTypeSelector from './SocialTypeComboBox';
 import { SocialType } from '@/models/Dto/SeoAdditions/social-type';
@@ -18,28 +17,7 @@ type BaseObject = {
   [key: string]: unknown;
 };
 
-function updateObject(obj1: BaseObject, obj2: BaseObject): BaseObject {
-  /**
-   * Update obj1 with values from obj2 for matching keys.
-   *
-   * @param obj1 - The object to be updated.
-   * @param obj2 - The object containing new values.
-   * @returns Updated obj1 with values from obj2.
-   */
-  // Create a copy of obj1 to avoid modifying the original
-  const updatedObj: BaseObject = { ...obj1 };
-  
-  // Iterate through the items in obj2
-  Object.entries(obj2).forEach(([key, value]) => {
-    // Check if the key exists in both objects
-    if (key in updatedObj) {
-      // Assign the value from obj2 to the corresponding key in updatedObj
-      updatedObj[key] = value;
-    }
-  });
 
-  return updatedObj;
-}
 
 
 const ModalWindowForUpdateSeoAddition = ({ isOpen, onClose, seoAddition }: { isOpen: boolean, onClose: () => void, seoAddition: GetSeoAdditionDto }) => {
@@ -82,6 +60,8 @@ const ModalWindowForUpdateSeoAddition = ({ isOpen, onClose, seoAddition }: { isO
 
     const handleSubmit = async (e: any) => {
         let seoAdditionService = new SeoAdditionService();
+
+        var res = await useAuthService(seoAdditionService);
 
         let updateObject : UpdateSeoAdditionDto = {
             description: objectState.description,
