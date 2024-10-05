@@ -15,12 +15,12 @@ import {
 import { Chip } from "@nextui-org/chip";
 import { LoadingState } from "@react-types/shared";
 import { Icon } from "@iconify-icon/react";
-import { DeleteIcon, EditIcon, EyeIcon } from "@nextui-org/shared-icons";
+import { DeleteIcon, EyeIcon } from "@nextui-org/shared-icons";
 import { ZodBoolean, ZodDate, ZodError, ZodNumber, ZodString } from "zod";
 import { useTranslations } from "use-intl";
 
-import { CrudService } from "@/service/shared/CrudService";
 import { ModelDto } from "@/models/Shared/model-dto";
+import { CrudService } from "@/service/shared/CrudService";
 import useSearchParam from "@/hooks/useSearchParam";
 import { ReturnPageDto } from "@/models/Shared/return-page-dto";
 import { ColumnInfos } from "@/types/table/ColumnInfo";
@@ -32,6 +32,7 @@ import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagina
 import useDebounceState from "@/hooks/useDebounceState";
 
 import ButtonForOpenUpdateSeoAdditionModalWindow from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindow";
+import ButtonForOpenUpdateModalWindow from "../shared/models-windows/shared/ButtonForOpenUpdateModalWindow";
 
 const classNames: SlotsToClasses<TableSlots> = {
   wrapper: [
@@ -144,14 +145,19 @@ const ModelTable = <TGetModelDto extends ModelDto>({
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content={tTables("Edit")}>
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
+            <ButtonForOpenUpdateModalWindow model={item} service={service} />
             <Tooltip color="danger" content={tTables("Delete")}>
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
+                <DeleteIcon
+                  onClick={() => {
+                    service.delete(item.id);
+                    let newModels = { ...items };
+
+                    newModels.models =
+                      items?.models.filter((e) => e.id !== item.id) || [];
+                    setItems(newModels as any);
+                  }}
+                />
               </span>
             </Tooltip>
             {item.seoAddition !== null ? (

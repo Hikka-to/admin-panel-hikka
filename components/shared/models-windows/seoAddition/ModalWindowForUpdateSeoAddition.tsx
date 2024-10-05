@@ -17,15 +17,6 @@ import { UpdateSeoAdditionDto } from "@/models/Dto/SeoAdditions/update-seo-addit
 import { SocialType } from "@/models/Dto/SeoAdditions/social-type";
 
 import SocialTypeSelector from "./SocialTypeComboBox";
-
-type ObjectMap<T> = {
-  [K in keyof T]: T[K];
-};
-
-type BaseObject = {
-  [key: string]: unknown;
-};
-
 const ModalWindowForUpdateSeoAddition = ({
   isOpen,
   onClose,
@@ -36,8 +27,10 @@ const ModalWindowForUpdateSeoAddition = ({
   seoAddition: GetSeoAdditionDto;
 }) => {
   type StringKey = keyof Omit<GetSeoAdditionDto, "socialType">;
+
   let seoAdditionService = new SeoAdditionService();
-  let res = useAuthService(seoAdditionService);
+
+  useAuthService(seoAdditionService);
 
   const stringKeys = Object.keys(seoAddition).filter(
     (key) =>
@@ -47,18 +40,18 @@ const ModalWindowForUpdateSeoAddition = ({
       !key.toLowerCase().includes("id"),
   ) as StringKey[];
 
-  let [objectState, setState] = useState(seoAddition);
+  const [objectState, setObjectState] = useState(seoAddition);
 
   const onChange = (e: any) => {
     const { name, value } = e.target;
 
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setObjectState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const initialState = { ...seoAddition };
 
   const clearState = () => {
-    setState({ ...initialState });
+    setObjectState({ ...initialState });
   };
 
   const innerOnClose = () => {
@@ -66,7 +59,7 @@ const ModalWindowForUpdateSeoAddition = ({
     onClose();
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async () => {
     let updateObject: UpdateSeoAdditionDto = {
       description: objectState.description,
       id: seoAddition.id,
@@ -105,7 +98,7 @@ const ModalWindowForUpdateSeoAddition = ({
                   label={name}
                   name={name}
                   placeholder={name}
-                  value={objectState[name] || ""}
+                  value={objectState[name] ?? ""}
                   variant="bordered"
                   onChange={onChange}
                 />
