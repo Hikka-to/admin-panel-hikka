@@ -21,10 +21,6 @@ type BaseObject = {
 
 
 const ModalWindowForUpdateSeoAddition = ({ isOpen, onClose, seoAddition }: { isOpen: boolean, onClose: () => void, seoAddition: GetSeoAdditionDto }) => {
-
-
-
-
     type StringKey = keyof Omit<GetSeoAdditionDto, 'socialType'>;
 
     const stringKeys = Object.keys(seoAddition).filter(key =>
