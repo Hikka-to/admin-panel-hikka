@@ -29,6 +29,7 @@ import TransparentInput from "@/components/inputs/TransparentInput";
 import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import useDebounceState from "@/hooks/useDebounceState";
 import ButtonForOpenUpdateSeoAdditionModalWindow from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindow";
+import ButtonForOpenUpdateModalWindow from "../shared/models-windows/shared/ButtonForOpenUpdateModalWindow";
 
 const classNames: SlotsToClasses<TableSlots> = {
   wrapper: [
@@ -115,14 +116,24 @@ const ModelTable = <TGetModelDto extends ModelDto>
                 <EyeIcon />
               </span>
           </Tooltip>
-          <Tooltip content="Edit">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-          </Tooltip>
-          <Tooltip color="danger" content="Delete">
+          <ButtonForOpenUpdateModalWindow 
+          model={item}
+           service={service}
+           />
+         <Tooltip color="danger" content="Delete">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
+                <DeleteIcon 
+                  onClick={
+                    () => 
+                      {
+                        service.delete(item.id)
+                        let newModels = {...items };
+                        newModels.models = items?.models.filter(e => e.id !== item.id) || [];
+                        setItems(newModels as any);
+                      }
+                  }
+                
+                />
               </span>
           </Tooltip>
           {item.seoAddition !== null ? 
