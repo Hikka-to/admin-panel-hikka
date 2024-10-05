@@ -6,8 +6,10 @@ import { Button, Link } from "@nextui-org/react";
 import { CardBody, CardHeader } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { signIn } from "next-auth/react";
-import PasswordInput from "@/components/inputs/PasswordInput";
 import axios from "axios";
+import { useTranslations } from "use-intl";
+
+import PasswordInput from "@/components/inputs/PasswordInput";
 import { useAuth } from "@/hooks/auth";
 import TransparentInput from "@/components/inputs/TransparentInput";
 
@@ -19,10 +21,12 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { status } = useAuth({ redirect: true });
+  const t = useTranslations();
 
   // Errors
   const [error, setError] = useState("");
-  const [showConfirmPasswordError, setShowConfirmPasswordError] = useState(false);
+  const [showConfirmPasswordError, setShowConfirmPasswordError] =
+    useState(false);
 
   const handleSubmit = async (e: any) => {
     setIsLoading(true);
@@ -30,6 +34,7 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       setShowConfirmPasswordError(true);
       setIsLoading(false);
+
       return;
     }
     try {
@@ -37,8 +42,9 @@ const RegisterPage = () => {
         email,
         password,
         username,
-        role: "Admin"
+        role: "Admin",
       });
+
       if (result.status !== 200) {
         setError("Failed to register");
       } else {
@@ -46,8 +52,9 @@ const RegisterPage = () => {
           email,
           password,
           callbackUrl: "/",
-          redirect: false
+          redirect: false,
         });
+
         if (signInResult?.error) {
           setError("Failed to login");
         } else {
@@ -56,6 +63,7 @@ const RegisterPage = () => {
       }
     } catch (e) {
       const error = e as Error;
+
       setError(error.message);
     }
     setIsLoading(false);
@@ -73,65 +81,62 @@ const RegisterPage = () => {
           	flex
           	flex-wrap
           	space-y-2
-          	justify-between">
-        <h1 className="text-2xl font-bold">Registration</h1>
+          	justify-between"
+      >
+        <h1 className="text-2xl font-bold">{t("Auth.Registration")}</h1>
         <Button
-          href="/auth/login"
-          as={Link}
           showAnchorIcon
-          variant="solid"
+          as={Link}
           className="!mt-0"
+          href="/auth/login"
+          variant="solid"
         >
-          Login
+          {t("Auth.Login")}
         </Button>
       </CardHeader>
       <Divider />
       <CardBody>
         <form
-          onSubmit={handleSubmit}
           className="
             	flex
             	flex-wrap
             	space-y-2
             	justify-between"
+          onSubmit={handleSubmit}
         >
           <TransparentInput
+            required
+            placeholder={t("Auth.Username")}
             type="text"
-            placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
           <TransparentInput
+            required
+            placeholder={t("Auth.Email")}
             type="email"
-            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
           <TransparentInput
+            required
             as={PasswordInput}
-            placeholder="Password"
+            placeholder={t("Auth.Password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
           <TransparentInput
+            required
             as={PasswordInput}
-            placeholder="Confirm Password"
+            errorMessage={t("Passwords do not match")}
+            isInvalid={showConfirmPasswordError}
+            placeholder={t("Auth.Confirm Password")}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            isInvalid={showConfirmPasswordError}
-            errorMessage="Passwords do not match"
           />
-          {error && <p className="text-red-500 w-full">{error}</p>}
-          <Button
-            color="primary"
-            type="submit"
-            isLoading={isLoading}
-          >
-            Register
+          {error && <p className="text-red-500 w-full">{t(error)}</p>}
+          <Button color="primary" isLoading={isLoading} type="submit">
+            {t("Auth.Register")}
           </Button>
         </form>
       </CardBody>

@@ -1,0 +1,43 @@
+{
+  "Auth": {
+    "Login": "Login",
+    "Registration": "Registration",
+    "Register": "Register",
+    "Logout": "Logout",
+    "Username": "Username",
+    "Email": "Email",
+    "Password": "Password",
+    "Confirm Password": "Confirm Password"
+  },
+  "Search": {
+    "Search": "Search",
+    "Advanced Search": "Advanced Search",
+    "Quick Search": "Quick Search"
+  },
+  "Sidebar": {
+    "Open sidebar": "Open sidebar",
+    "Close sidebar": "Close sidebar"
+  },
+  "Home": {
+    "Home": "Home"
+  },
+  "Tables": {
+    "Tables": "Tables",
+    "id": "Id",
+    "actions": "Actions",
+    "icon": "Icon",
+    "name": "Name",
+    "Details": "Details",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Edit seoAddition": "Edit seo addition",
+    "Items Per Page": "Items Per Page",
+    "Countries": {
+      "Countries": "Countries",
+      "Country": "Country"
+    }
+  },
+  "Page not found": "Page not found",
+  "Passwords do not match": "Passwords do not match",
+  "Unauthorized Action": "Unauthorized Action"
+}

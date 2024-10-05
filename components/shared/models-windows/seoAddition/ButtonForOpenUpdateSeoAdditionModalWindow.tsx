@@ -1,36 +1,43 @@
-"use client"
-import { GetSeoAdditionDto } from '@/models/Dto/SeoAdditions/get-seo-addition-dto';
-import React, { useState } from 'react'
-import ModalWindowForUpdateSeoAddition from './ModalWindowForUpdateSeoAddition';
-import { Tooltip } from '@nextui-org/react';
-import { DeleteIcon, EditIcon, EyeIcon } from "@nextui-org/shared-icons";
+"use client";
+import React, { useState } from "react";
+import { Tooltip } from "@nextui-org/react";
+import { EditIcon } from "@nextui-org/shared-icons";
+import { useTranslations } from "use-intl";
 
+import { GetSeoAdditionDto } from "@/models/Dto/SeoAdditions/get-seo-addition-dto";
 
-const ButtonForOpenUpdateSeoAdditionModalWindow = ({ seoAddition }: { seoAddition: GetSeoAdditionDto }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+import ModalWindowForUpdateSeoAddition from "./ModalWindowForUpdateSeoAddition";
 
+const ButtonForOpenUpdateSeoAdditionModalWindow = ({
+  seoAddition,
+}: {
+  seoAddition: GetSeoAdditionDto;
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const t = useTranslations("Tables");
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-    return (
-        <>
-            <Tooltip content="Edit seoAddition">
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                    <EditIcon onClick={openModal} />
-                </span>
-            </Tooltip>
-            <ModalWindowForUpdateSeoAddition
-                seoAddition={seoAddition}
-                isOpen={isModalOpen}
-                onClose={closeModal}
-            />
-        </>
-    )
-}
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-export default ButtonForOpenUpdateSeoAdditionModalWindow
+  return (
+    <>
+      <Tooltip content={t("Edit seoAddition")}>
+        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+          <EditIcon onClick={openModal} />
+        </span>
+      </Tooltip>
+      <ModalWindowForUpdateSeoAddition
+        isOpen={isModalOpen}
+        seoAddition={seoAddition}
+        onClose={closeModal}
+      />
+    </>
+  );
+};
+
+export default ButtonForOpenUpdateSeoAdditionModalWindow;

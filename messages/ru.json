@@ -1,0 +1,43 @@
+{
+  "Auth": {
+    "Login": "Войти",
+    "Registration": "Регистрация",
+    "Register": "Зарегистрироваться",
+    "Logout": "Выйти",
+    "Username": "Имя пользователя",
+    "Email": "Email",
+    "Password": "Пароль",
+    "Confirm Password": "Подтвердите Пароль"
+  },
+  "Search": {
+    "Search": "Поиск",
+    "Advanced Search": "Расширенный Поиск",
+    "Quick Search": "Быстрый Поиск"
+  },
+  "Sidebar": {
+    "Open sidebar": "Открыть боковую панель",
+    "Close sidebar": "Закрыть боковую панель"
+  },
+  "Home": {
+    "Home": "Главная"
+  },
+  "Tables": {
+    "Tables": "Таблицы",
+    "id": "Id",
+    "actions": "Действия",
+    "icon": "Иконка",
+    "name": "Имя",
+    "Details": "Детали",
+    "Edit": "Редактировать",
+    "Delete": "Удалить",
+    "Edit seoAddition": "Редактировать seo дополнение",
+    "Items Per Page": "Элементов на странице",
+    "Countries": {
+      "Countries": "Страны",
+      "Country": "Страна"
+    }
+  },
+  "Page not found": "Страница не найдена",
+  "Passwords do not match": "Пароли не совпадают",
+  "Unauthorized Action": "Несанкционированное действие"
+}
