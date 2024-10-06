@@ -12,9 +12,11 @@ const ButtonForOpenUpdateModalWindow = <
     Service extends CrudService<TGetModelDto, object, ModelDto>>({
          model,
          service,
+         setModel,
          }: {
         model: TGetModelDto,
         service: Service,
+        setModel: (item: TGetModelDto) => void,
     }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -38,6 +40,7 @@ const ButtonForOpenUpdateModalWindow = <
                 onClose={closeModal}
                 model={model} 
                 service={service}
+                setModel={setModel}
                 />
         </>
     )

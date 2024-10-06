@@ -1,10 +1,10 @@
 "use client"
-import { ModelDto } from '@/AppDtos/Shared/model-dto'
 import { CrudService } from '@/service/shared/CrudService'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
 import React, { useState } from 'react'
 import { ZodError } from 'zod';
 import GenerateEditInputForUpdateDtoScheme from './GenerateEditInputForUpdateDtoScheme';
+import { ModelDto } from '@/models/Shared/model-dto';
 
 const EditModelWindow = <
     TGetModelDto extends ModelDto,
@@ -14,11 +14,13 @@ const EditModelWindow = <
             onClose,
             model,
             service,
+            setModel,
         }: {
             isOpen: boolean,
             onClose: () => void,
             model: TGetModelDto,
             service: Service,
+            setModel: (item:TGetModelDto) => void
 
         }) => {
 
@@ -59,8 +61,8 @@ const EditModelWindow = <
             await service.update(objectState);
             setState({... objectState});
             setInitialState({...objectState});
-            // setModel(objectState);
-            innerOnClose();
+            setModel(objectState);
+            onClose();
         } catch (e) {
             if (e instanceof ZodError) {
                 console.error(e.errors);

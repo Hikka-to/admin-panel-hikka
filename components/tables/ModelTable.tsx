@@ -108,6 +108,19 @@ const ModelTable = <TGetModelDto extends ModelDto>
   }, []);
 
   const renderCell = useCallback((item: any, column: string | number) => {
+
+     const setModelInItems = (item:TGetModelDto) =>
+    {
+      const index = items?.models.findIndex(e => e.id === item.id);
+
+      if (items?.models !== undefined){
+        items!.models[index as number] = item;
+        setItems({...items} as any);
+      }
+
+    }
+
+
     if (column === "actions") {
       return (
         <div className="relative flex items-center gap-2">
@@ -119,6 +132,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
           <ButtonForOpenUpdateModalWindow 
           model={item}
            service={service}
+           setModel={setModelInItems}
            />
          <Tooltip color="danger" content="Delete">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
