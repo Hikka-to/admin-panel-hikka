@@ -1,11 +1,12 @@
-"use client"
-import React, { useState } from 'react'
-import { Tooltip } from '@nextui-org/react';
-import { DeleteIcon, EditIcon, EyeIcon } from "@nextui-org/shared-icons";
-import { CrudService } from '@/service/shared/CrudService';
-import EditModelWindow from './EditModelWindow';
-import { ModelDto } from '@/models/Shared/model-dto';
+"use client";
+import React, { useState } from "react";
+import { Tooltip } from "@nextui-org/react";
+import { EditIcon } from "@nextui-org/shared-icons";
 
+import { CrudService } from "@/service/shared/CrudService";
+import { ModelDto } from "@/models/Shared/model-dto";
+
+import EditModelWindow from "./EditModelWindow";
 
 const ButtonForOpenUpdateModalWindow = <
     TGetModelDto extends ModelDto,
@@ -20,10 +21,14 @@ const ButtonForOpenUpdateModalWindow = <
     }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -46,4 +51,4 @@ const ButtonForOpenUpdateModalWindow = <
     )
 }
 
-export default ButtonForOpenUpdateModalWindow
+export default ButtonForOpenUpdateModalWindow;

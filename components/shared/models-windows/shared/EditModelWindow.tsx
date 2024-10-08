@@ -1,3 +1,4 @@
+
 "use client"
 import { CrudService } from '@/service/shared/CrudService'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
@@ -74,20 +75,23 @@ const EditModelWindow = <
 
         }
     }
+  };
 
+  const innerOnClose = () => {
+    clearState();
+    onClose();
+  };
 
-    const innerOnClose = () => {
-        clearState();
-        onClose();
-    }
-    return (
-        <Modal isOpen={isOpen} onClose={innerOnClose}>
-            <ModalContent>
-                {(innerOnClose) => (
-                    <>
-                        <ModalHeader className="flex flex-col gap-1">Update the model</ModalHeader>
-                        <ModalBody>
-                            {/* {stringKeys.map(name => (
+  return (
+    <Modal isOpen={isOpen} onClose={innerOnClose}>
+      <ModalContent>
+        {(innerOnClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">
+              Update the model
+            </ModalHeader>
+            <ModalBody>
+              {/* {stringKeys.map(name => (
                                 <Input
                                     label={name as string}
                                     placeholder={name as string}
@@ -97,30 +101,27 @@ const EditModelWindow = <
                                     onChange={onChange}
                                 />
                             ))} */}
-                            {
-                            <GenerateEditInputForUpdateDtoScheme
-                            onChange={onChange}
-                            updateObject={objectState}
-                            updateScheme={service.updateDtoSchema}
+              {
+                <GenerateEditInputForUpdateDtoScheme
+                  updateObject={objectState}
+                  updateScheme={service.updateDtoSchema}
+                  onChange={onChange}
+                />
+              }
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={innerOnClose}>
+                Close
+              </Button>
+              <Button color="primary" onPress={handleSubmit}>
+                submit
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
+  );
+};
 
-                            />
-                            }
-
-
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color="danger" variant="light" onPress={innerOnClose}>
-                                Close
-                            </Button>
-                            <Button color="primary" onPress={handleSubmit}>
-                                submit
-                            </Button>
-                        </ModalFooter>
-                    </>
-                )}
-            </ModalContent>
-        </Modal>
-    )
-}
-
-export default EditModelWindow
+export default EditModelWindow;

@@ -1,15 +1,18 @@
 "use client";
-import React, { useState } from 'react';
+import React from "react";
 import { Select, SelectItem, SharedSelection } from "@nextui-org/react";
-import { SocialType } from '@/models/Dto/SeoAdditions/social-type';
 
+import { SocialType } from "@/models/Dto/SeoAdditions/social-type";
 
 interface SocialTypeSelectorProps {
   onSelectionChanged: (selectedType: SocialType | null | undefined) => void;
   initialState: SocialType | null | undefined;
 }
 
-const SocialTypeSelector: React.FC<SocialTypeSelectorProps> = ({ onSelectionChanged, initialState }) => {
+const SocialTypeSelector: React.FC<SocialTypeSelectorProps> = ({
+  onSelectionChanged,
+  initialState,
+}) => {
   const socialTypes = [
     { key: SocialType.Website, label: "Website" },
     { key: SocialType.Article, label: "Article" },
@@ -25,24 +28,19 @@ const SocialTypeSelector: React.FC<SocialTypeSelectorProps> = ({ onSelectionChan
     { key: SocialType.MusicRadioStation, label: "MusicRadioStation" },
   ];
 
+  const innerOnSelectionChanged = (keys: SharedSelection) => {
+    var arrayKeys = [...keys];
 
-  const innerOnSelectionChanged = (keys: SharedSelection) => 
-    {
-
-      var arrayKeys = [...keys];
-
-      onSelectionChanged(arrayKeys[0] as SocialType);
-
-    }
-
+    onSelectionChanged(arrayKeys[0] as SocialType);
+  };
 
   return (
     <Select
+      className="max-w-xs"
+      defaultSelectedKeys={[initialState?.toString() as string]}
       items={socialTypes}
       label="Select the social type"
       placeholder="Select the social type"
-      className="max-w-xs"
-      defaultSelectedKeys={[initialState?.toString() as string]}
       onSelectionChange={innerOnSelectionChanged}
     >
       {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}

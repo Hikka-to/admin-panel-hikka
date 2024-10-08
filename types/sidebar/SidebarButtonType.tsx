@@ -1,10 +1,9 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 
 interface SidebarButtonType {
-    text: string,
-    url: string,
-    icon?: ReactNode
+  text: string;
+  url: string;
+  icon?: ReactNode;
 }
-
 
 export default SidebarButtonType;
