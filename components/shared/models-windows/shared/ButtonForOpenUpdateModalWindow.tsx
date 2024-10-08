@@ -29,10 +29,7 @@ const ButtonForOpenUpdateModalWindow = <
     setIsModalOpen(false);
   };
 
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+  
     return (
         <>
             <Tooltip content="Edit model">

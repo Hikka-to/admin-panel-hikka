@@ -115,6 +115,22 @@ const ModelTable = <TGetModelDto extends ModelDto>({
     { key: "actions" },
   ];
 
+   const getFieldName = useCallback(
+    (column: string | number | symbol) => {
+      let fieldName = tTables(`${service.modelName}.${column.toString()}`);
+
+      if (fieldName === `Tables.${service.modelName}.${column.toString()}`) {
+        fieldName = tTables(column.toString());
+        if (fieldName === `Tables.${column.toString()}`) {
+          fieldName = column.toString();
+        }
+      }
+
+      return toTitleCase(fieldName);
+    },
+    [t],
+  );
+
   const sortHandler = useCallback((sortDescriptor: SortDescriptor) => {
     setSortDescriptor(sortDescriptor);
   }, []);
