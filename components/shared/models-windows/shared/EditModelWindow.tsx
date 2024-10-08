@@ -1,70 +1,79 @@
-"use client";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
-import React, { useState } from "react";
-import { ZodError } from "zod";
 
-import { CrudService } from "@/service/shared/CrudService";
-
-import GenerateEditInputForUpdateDtoScheme from "./GenerateEditInputForUpdateDtoScheme";
-import { ModelDto } from "@/models/Shared/model-dto";
+"use client"
+import { CrudService } from '@/service/shared/CrudService'
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import React, { useState } from 'react'
+import { ZodError } from 'zod';
+import GenerateEditInputForUpdateDtoScheme from './GenerateEditInputForUpdateDtoScheme';
+import { ModelDto } from '@/models/Shared/model-dto';
 
 const EditModelWindow = <
-  TGetModelDto extends ModelDto,
-  Service extends CrudService<TGetModelDto, object, ModelDto>,
->({
-  isOpen,
-  onClose,
-  model,
-  service,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  model: TGetModelDto;
-  service: Service;
-}) => {
-  type StringKey = keyof TGetModelDto;
+    TGetModelDto extends ModelDto,
+    Service extends CrudService<TGetModelDto, object, ModelDto>>(
+        {
+            isOpen,
+            onClose,
+            model,
+            service,
+            setModel,
+        }: {
+            isOpen: boolean,
+            onClose: () => void,
+            model: TGetModelDto,
+            service: Service,
+            setModel: (item:TGetModelDto) => void
 
-  const stringKeys = Object.keys(model).filter(
-    (key) =>
-      typeof model[key as keyof typeof model] === "string" &&
-      model[key as keyof typeof model] !== undefined &&
-      !key.toLowerCase().includes("id"),
-  ) as StringKey[];
+        }) => {
 
-  let [objectState, setState] = useState(model);
 
-  const onChange = (e: any) => {
-    const { name, value } = e.target;
 
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
 
-  const [initialState, setInitialState] = useState({ ...model });
+    type StringKey = keyof TGetModelDto;
 
-  const clearState = () => {
-    setState({ ...initialState });
-  };
 
-  const handleSubmit = async () => {
-    objectState.id = model.id;
-    try {
-      await service.update(objectState);
-      setState({ ...objectState });
-      setInitialState({ ...objectState });
-      innerOnClose();
-    } catch (e) {
-      if (e instanceof ZodError) {
-        console.error(e.errors);
-      } else {
-        throw e;
-      }
+
+    const stringKeys = Object.keys(model).filter(key =>
+        typeof model[key as keyof typeof model] === 'string' &&
+        model[key as keyof typeof model] !== undefined &&
+        !key.toLowerCase().includes('id')
+    ) as StringKey[];
+
+
+    let [objectState
+        ,
+        setState
+    ] = useState(model);
+
+
+    const onChange = (e: any) => {
+        const { name, value } = e.target;
+        setState(prevState => ({ ...prevState, [name]: value }));
+    };
+
+    const [initialState, setInitialState ] = useState({ ...model });
+
+    const clearState = () => {
+        setState({ ...initialState });
+    };
+
+    const handleSubmit = async () => {
+        objectState.id = model.id;
+        try {
+            await service.update(objectState);
+            setState({... objectState});
+            setInitialState({...objectState});
+            setModel(objectState);
+            onClose();
+        } catch (e) {
+            if (e instanceof ZodError) {
+                console.error(e.errors);
+            }
+            else
+            {
+                throw e;
+            }
+
+        }
     }
   };
 

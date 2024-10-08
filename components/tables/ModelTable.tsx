@@ -119,34 +119,35 @@ const ModelTable = <TGetModelDto extends ModelDto>({
     setSortDescriptor(sortDescriptor);
   }, []);
 
-  const getFieldName = useCallback(
-    (column: string | number | symbol) => {
-      let fieldName = tTables(`${service.modelName}.${column.toString()}`);
 
-      if (fieldName === `Tables.${service.modelName}.${column.toString()}`) {
-        fieldName = tTables(column.toString());
-        if (fieldName === `Tables.${column.toString()}`) {
-          fieldName = column.toString();
-        }
+  const renderCell = useCallback((item: any, column: string | number) => {
+
+     const setModelInItems = (item:TGetModelDto) =>
+    {
+      const index = items?.models.findIndex(e => e.id === item.id);
+
+      if (items?.models !== undefined){
+        items!.models[index as number] = item;
+        setItems({...items} as any);
       }
 
-      return toTitleCase(fieldName);
-    },
-    [t],
-  );
+    }
 
-  const renderCell = useCallback(
-    (item: any, column: string | number) => {
-      if (column === "actions") {
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content={tTables("Details")}>
+
+    if (column === "actions") {
+      return (
+        <div className="relative flex items-center gap-2">
+          <Tooltip content="Details">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EyeIcon />
               </span>
-            </Tooltip>
-            <ButtonForOpenUpdateModalWindow model={item} service={service} />
-            <Tooltip color="danger" content={tTables("Delete")}>
+          </Tooltip>
+          <ButtonForOpenUpdateModalWindow 
+          model={item}
+           service={service}
+           setModel={setModelInItems}
+           />
+         <Tooltip color="danger" content="Delete">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon
                   onClick={() => {
