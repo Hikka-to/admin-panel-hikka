@@ -1,4 +1,3 @@
-
 "use client"
 import { CrudService } from '@/service/shared/CrudService'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
@@ -8,74 +7,72 @@ import GenerateEditInputForUpdateDtoScheme from './GenerateEditInputForUpdateDto
 import { ModelDto } from '@/models/Shared/model-dto';
 
 const EditModelWindow = <
-    TGetModelDto extends ModelDto,
-    Service extends CrudService<TGetModelDto, object, ModelDto>>(
-        {
-            isOpen,
-            onClose,
-            model,
-            service,
-            setModel,
-        }: {
-            isOpen: boolean,
-            onClose: () => void,
-            model: TGetModelDto,
-            service: Service,
-            setModel: (item:TGetModelDto) => void
+  TGetModelDto extends ModelDto,
+  Service extends CrudService<TGetModelDto, object, ModelDto>>(
+    {
+      isOpen,
+      onClose,
+      model,
+      service,
+      setModel,
+    }: {
+      isOpen: boolean,
+      onClose: () => void,
+      model: TGetModelDto,
+      service: Service,
+      setModel: (item: TGetModelDto) => void
 
-        }) => {
-
-
-
-
-    type StringKey = keyof TGetModelDto;
+    }) => {
 
 
 
-    const stringKeys = Object.keys(model).filter(key =>
-        typeof model[key as keyof typeof model] === 'string' &&
-        model[key as keyof typeof model] !== undefined &&
-        !key.toLowerCase().includes('id')
-    ) as StringKey[];
+
+  type StringKey = keyof TGetModelDto;
 
 
-    let [objectState
-        ,
-        setState
-    ] = useState(model);
+
+  const stringKeys = Object.keys(model).filter(key =>
+    typeof model[key as keyof typeof model] === 'string' &&
+    model[key as keyof typeof model] !== undefined &&
+    !key.toLowerCase().includes('id')
+  ) as StringKey[];
 
 
-    const onChange = (e: any) => {
-        const { name, value } = e.target;
-        setState(prevState => ({ ...prevState, [name]: value }));
-    };
+  let [objectState
+    ,
+    setState
+  ] = useState(model);
 
-    const [initialState, setInitialState ] = useState({ ...model });
 
-    const clearState = () => {
-        setState({ ...initialState });
-    };
-
-    const handleSubmit = async () => {
-        objectState.id = model.id;
-        try {
-            await service.update(objectState);
-            setState({... objectState});
-            setInitialState({...objectState});
-            setModel(objectState);
-            onClose();
-        } catch (e) {
-            if (e instanceof ZodError) {
-                console.error(e.errors);
-            }
-            else
-            {
-                throw e;
-            }
-
-        }
-    }
+  const onChange = (e: any) => {
+    const { name, value } = e.target;
+    setState(prevState => ({ ...prevState, [name]: value }));
   };
+
+  const [initialState, setInitialState] = useState({ ...model });
+
+  const clearState = () => {
+    setState({ ...initialState });
+  };
+
+  const handleSubmit = async () => {
+    objectState.id = model.id;
+    try {
+      await service.update(objectState);
+      setState({ ...objectState });
+      setInitialState({ ...objectState });
+      setModel(objectState);
+      onClose();
+    } catch (e) {
+      if (e instanceof ZodError) {
+        console.error(e.errors);
+      }
+      else {
+        throw e;
+      }
+
+    }
+  }
 
   const innerOnClose = () => {
     clearState();
@@ -91,23 +88,12 @@ const EditModelWindow = <
               Update the model
             </ModalHeader>
             <ModalBody>
-              {/* {stringKeys.map(name => (
-                                <Input
-                                    label={name as string}
-                                    placeholder={name as string}
-                                    variant="bordered"
-                                    name={name as string}
-                                    value={objectState[name] as string || ''}
-                                    onChange={onChange}
-                                />
-                            ))} */}
-              {
-                <GenerateEditInputForUpdateDtoScheme
-                  updateObject={objectState}
-                  updateScheme={service.updateDtoSchema}
-                  onChange={onChange}
-                />
-              }
+
+              <GenerateEditInputForUpdateDtoScheme
+                updateObject={objectState}
+                updateScheme={service.updateDtoSchema}
+                onChange={onChange}
+              />
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={innerOnClose}>
