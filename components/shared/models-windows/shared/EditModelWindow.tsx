@@ -3,7 +3,7 @@ import { CrudService } from '@/service/shared/CrudService'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
 import React, { useState } from 'react'
 import { ZodError } from 'zod';
-import GenerateEditInputForUpdateDtoScheme from './GenerateEditInputForUpdateDtoScheme';
+import GenerateEditInputForUpdateDtoScheme from './GeneratedInputs/GenerateEditInputForUpdateDtoScheme';
 import { ModelDto } from '@/models/Shared/model-dto';
 
 const EditModelWindow = <
