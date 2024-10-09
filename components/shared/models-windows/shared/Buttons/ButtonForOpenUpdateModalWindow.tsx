@@ -6,7 +6,7 @@ import { EditIcon } from "@nextui-org/shared-icons";
 import { CrudService } from "@/service/shared/CrudService";
 import { ModelDto } from "@/models/Shared/model-dto";
 
-import EditModelWindow from "./EditModelWindow";
+import EditModelWindow from "../EditModelWindow";
 
 const ButtonForOpenUpdateModalWindow = <
     TGetModelDto extends ModelDto,

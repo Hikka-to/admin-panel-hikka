@@ -32,7 +32,8 @@ import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagina
 import useDebounceState from "@/hooks/useDebounceState";
 
 import ButtonForOpenUpdateSeoAdditionModalWindow from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindow";
-import ButtonForOpenUpdateModalWindow from "../shared/models-windows/shared/ButtonForOpenUpdateModalWindow";
+import ButtonForOpenUpdateModalWindow from "../shared/models-windows/shared/Buttons/ButtonForOpenUpdateModalWindow";
+import ButtonForOpenCreateModalWindow from "../shared/models-windows/shared/Buttons/ButtonForOpenCreateModalWindow";
 
 const classNames: SlotsToClasses<TableSlots> = {
   wrapper: [
@@ -313,6 +314,12 @@ const ModelTable = <TGetModelDto extends ModelDto>({
           value={perPageState}
           onChange={(e) => setPerPageState(e.target.value)}
         />
+
+
+          <ButtonForOpenCreateModalWindow
+          service={service}
+        />
+
         {items && items.howManyPages > 0 ? (
           <Pagination
             showControls
