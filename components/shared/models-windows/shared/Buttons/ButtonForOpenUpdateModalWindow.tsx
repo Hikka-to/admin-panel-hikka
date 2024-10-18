@@ -1,12 +1,12 @@
-"use client";
-import React, { useState } from "react";
-import { Tooltip } from "@nextui-org/react";
-import { EditIcon } from "@nextui-org/shared-icons";
+"use client"
+import React, { useState } from 'react'
+import { Tooltip } from '@nextui-org/react';
+import { DeleteIcon, EditIcon, EyeIcon } from "@nextui-org/shared-icons";
+import { CrudService } from '@/service/shared/CrudService';
+import EditModelWindow from '../models-windows/EditModelWindow';
+import ButtonForOpenUpdateModalWindowProps from '@/types/model-windows/buttons/update-buttons/ButtonForOpenUpdateModalWindowProps';
+import { ModelDto } from '@/models/Shared/model-dto';
 
-import { CrudService } from "@/service/shared/CrudService";
-import { ModelDto } from "@/models/Shared/model-dto";
-
-import EditModelWindow from "../EditModelWindow";
 
 const ButtonForOpenUpdateModalWindow = <
     TGetModelDto extends ModelDto,
@@ -14,22 +14,19 @@ const ButtonForOpenUpdateModalWindow = <
          model,
          service,
          setModel,
-         }: {
-        model: TGetModelDto,
-        service: Service,
-        setModel: (item: TGetModelDto) => void,
-    }) => {
+         specificInputMap = new Map([]),
+         specificUpdateMap = new Map([])
+         }: ButtonForOpenUpdateModalWindowProps<TGetModelDto, Service>) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
-  
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
     return (
         <>
             <Tooltip content="Edit model">
@@ -43,9 +40,12 @@ const ButtonForOpenUpdateModalWindow = <
                 model={model} 
                 service={service}
                 setModel={setModel}
+                specificInputMap={specificInputMap}
+                specificUpdateMap={specificUpdateMap}
+
                 />
         </>
     )
 }
 
-export default ButtonForOpenUpdateModalWindow;
+export default ButtonForOpenUpdateModalWindow

@@ -1,7 +1,13 @@
 "use client"
+import { CrudService } from '@/service/shared/CrudService';
+import FunctionForReturningSpecificInput from '@/types/model-windows/specific-inputs/FunctionForReturningSpecificInput';
+import ReturnButtonForOpenCreateWindowFunction from '@/types/model-windows/buttons/create-buttons/ReturnButtonForOpenCreateWindowFunction';
+import OnChangeFunctionProps from '@/types/model-windows/specific-inputs/OnChangeFunctionProps';
+import SpecificInput from '@/types/model-windows/specific-inputs/SpecificInput';
 import { Button, Input } from '@nextui-org/react';
-import React, { useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { ZodBoolean, ZodDate, ZodNumber, ZodString, z } from 'zod';
+import { ModelDto } from '@/models/Shared/model-dto';
 
 const accessibleNameTypes = {
     string: ZodString,
@@ -20,14 +26,16 @@ type AccessibleTypes = InstanceType<typeof accessibleNameTypes[AccessibleTypeNam
 interface GenerateCreateInputForCreateDtoSchemeProps {
     createScheme: z.infer<any>;
     form: any,
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    onChange: OnChangeFunctionProps;
+    specificInputMap: Map<string, FunctionForReturningSpecificInput<ModelDto>>
 }
 
 const GenerateCreateInputForCreateDtoScheme = (
   {
     createScheme,
     form,
-    onChange
+    onChange,
+    specificInputMap
 
   }
   :GenerateCreateInputForCreateDtoSchemeProps
@@ -53,6 +61,15 @@ const GenerateCreateInputForCreateDtoScheme = (
         const fieldValue = form[field as string];
         const fieldType = fieldToTypeMap.get(field as string);
 
+        if (specificInputMap.has(field as string))
+            {
+                const func = specificInputMap.get(field as string);
+
+                console.debug(fieldValue);
+
+                return func!(onChange, fieldValue || '');
+            }
+
         switch (typeof fieldValue) {
             case "string":
                 return (
@@ -62,7 +79,7 @@ const GenerateCreateInputForCreateDtoScheme = (
                         placeholder={field as string}
                         name={field as string}
                         value={fieldValue || ''}
-                        onChange={(e) => onChange(e)}
+                        onChange={(e) => onChange(e, typeof fieldValue)}
                         required
                     />
                 );
@@ -72,8 +89,9 @@ const GenerateCreateInputForCreateDtoScheme = (
                         type="number"
                         label= {field as string}
                         name={field as string}
-                        value={fieldValue as any as string  || "0"}
-                        onChange={(e) => onChange(e)}
+                        value={fieldValue as any as string || "0"}
+                        onChange={(e) => onChange(e, typeof fieldValue)}
+                        
                         required
                     />
                 );
@@ -81,7 +99,7 @@ const GenerateCreateInputForCreateDtoScheme = (
                 return (
                     <select 
                         name={field as string}
-                        onChange={(e) => onChange(e)}>
+                        onChange={(e) => onChange(e, typeof fieldValue)}>
                         <option value="">Select</option>
                         <option value="true">True</option>
                         <option value="false">False</option>

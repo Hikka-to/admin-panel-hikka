@@ -73,7 +73,15 @@ const ModalWindowForUpdateSeoAddition = ({
       socialType: objectState.socialType,
     };
 
-    seoAddition = objectState;
+    seoAddition.description = objectState.description;
+    seoAddition.slug = objectState.slug;
+    seoAddition.title = objectState.title;
+    seoAddition.image = objectState.image;
+    seoAddition.imageAlt = objectState.imageAlt;
+    seoAddition.socialImage = objectState.socialImage;
+    seoAddition.socialImageAlt = objectState.socialImageAlt;
+    seoAddition.socialTitle = objectState.socialTitle;
+    seoAddition.socialType = objectState.socialType;
 
     await new SeoAdditionService().update(updateObject);
     onClose();

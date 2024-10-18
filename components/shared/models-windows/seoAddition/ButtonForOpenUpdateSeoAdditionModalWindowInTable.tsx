@@ -8,7 +8,7 @@ import { GetSeoAdditionDto } from "@/models/Dto/SeoAdditions/get-seo-addition-dt
 
 import ModalWindowForUpdateSeoAddition from "./ModalWindowForUpdateSeoAddition";
 
-const ButtonForOpenUpdateSeoAdditionModalWindow = ({
+const ButtonForOpenUpdateSeoAdditionModalWindowInTable = ({
   seoAddition,
 }: {
   seoAddition: GetSeoAdditionDto;
@@ -40,4 +40,4 @@ const ButtonForOpenUpdateSeoAdditionModalWindow = ({
   );
 };
 
-export default ButtonForOpenUpdateSeoAdditionModalWindow;
+export default ButtonForOpenUpdateSeoAdditionModalWindowInTable;
