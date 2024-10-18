@@ -1,15 +1,15 @@
 import { CrudService } from '@/service/shared/CrudService'
 import { Button } from '@nextui-org/react'
 import React, { useState } from 'react'
-import CreateModelWindow from '../CreateModelWindow'
+import CreateModelWindow from '../models-windows/CreateModelWindow'
+import ButtonForOpenCreateModalWindowProps from '@/types/model-windows/buttons/create-buttons/ButtonForOpenCreateModalWindowProps'
 import { ModelDto } from '@/models/Shared/model-dto'
 
 const ButtonForOpenCreateModalWindow = <
   Service extends CrudService<ModelDto, object, ModelDto>>({
     service,
-  }: {
-    service: Service,
-  }) => {
+    specificInputMap
+  } :  ButtonForOpenCreateModalWindowProps<Service>) => {
 
       const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,7 +30,7 @@ const ButtonForOpenCreateModalWindow = <
         Create a new model
       </Button>
       <CreateModelWindow
-
+      specificInputMap={specificInputMap}
         isOpen={isModalOpen}
         onClose={closeModal}
         service={service}
