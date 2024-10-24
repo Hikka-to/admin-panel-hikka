@@ -5,7 +5,6 @@ import { isMacOs } from "react-device-detect";
 import { useTranslations } from "use-intl";
 
 const SearchKbd = () => {
-  const kbdRef = React.useRef<HTMLButtonElement>(null);
   const t = useTranslations("Search");
 
   const showAdvancedSearchHandler = () => {
@@ -30,7 +29,6 @@ const SearchKbd = () => {
       content={`${t("Advanced Search")} (${isMacOs ? "Command" : "Ctrl"} + K)`}
     >
       <Button
-        ref={kbdRef}
         as={Kbd}
         className={
           "rounded-small " +

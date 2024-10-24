@@ -26,8 +26,7 @@ const LoginPage = () => {
     const result = await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/",
-      redirect: false,
+      redirect: false
     });
 
     if (result?.status != 200) {

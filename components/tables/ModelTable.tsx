@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableColumn, TableHeader } from "@nextui-org/table";
 import {
   getKeyValue,
@@ -10,7 +10,7 @@ import {
   TableCell,
   TableRow,
   TableSlots,
-  Tooltip,
+  Tooltip
 } from "@nextui-org/react";
 import { Chip } from "@nextui-org/chip";
 import { LoadingState } from "@react-types/shared";
@@ -31,8 +31,10 @@ import TransparentInput from "@/components/inputs/TransparentInput";
 import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import useDebounceState from "@/hooks/useDebounceState";
 
-import ButtonForOpenUpdateSeoAdditionModalWindow from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindow";
-import ButtonForOpenUpdateModalWindow from "../shared/models-windows/shared/ButtonForOpenUpdateModalWindow";
+import ButtonForOpenUpdateSeoAdditionModalWindow
+  from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindow";
+import ButtonForOpenUpdateModalWindow
+  from "../shared/models-windows/shared/ButtonForOpenUpdateModalWindow";
 
 const classNames: SlotsToClasses<TableSlots> = {
   wrapper: [
@@ -40,21 +42,21 @@ const classNames: SlotsToClasses<TableSlots> = {
     "dark:bg-default-100/50",
     "backdrop-blur-md",
     "backdrop-saturate-150",
-    "h-full",
+    "h-full"
   ],
   th: [
     "bg-background/30",
     "dark:bg-default-100/40",
     "backdrop-blur-md",
-    "backdrop-saturate-150",
-  ],
+    "backdrop-saturate-150"
+  ]
 };
 
 const accessibleNameTypes = {
   string: ZodString,
   number: ZodNumber,
   boolean: ZodBoolean,
-  date: ZodDate,
+  date: ZodDate
 };
 
 const accessibleTypes = Object.values(accessibleNameTypes);
@@ -70,7 +72,7 @@ const transforms: Partial<
   boolean: (value) => (
     <Chip color={value ? "success" : "danger"}>{value ? "True" : "False"}</Chip>
   ),
-  date: (value: Date) => value.toLocaleString(),
+  date: (value: Date) => value.toLocaleString()
 };
 
 export interface ModelTableProps<TGetModelDto extends ModelDto> {
@@ -79,9 +81,9 @@ export interface ModelTableProps<TGetModelDto extends ModelDto> {
 }
 
 const ModelTable = <TGetModelDto extends ModelDto>({
-  service,
-  columnInfos,
-}: ModelTableProps<TGetModelDto>) => {
+                                                     service,
+                                                     columnInfos
+                                                   }: ModelTableProps<TGetModelDto>) => {
   const t = useTranslations();
   const tTables = useTranslations("Tables");
   const status = useAuthService(service);
@@ -90,7 +92,7 @@ const ModelTable = <TGetModelDto extends ModelDto>({
   const [perPageState, setPerPageState] = useDebounceState(
     perPage,
     setPerPage,
-    500,
+    500
   );
   const [items, setItems] = useState<ReturnPageDto<TGetModelDto>>();
   const [loadingState, setLoadingState] = useState<LoadingState>("loading");
@@ -102,51 +104,47 @@ const ModelTable = <TGetModelDto extends ModelDto>({
 
   const getDtoSchema = service.getDtoSchema;
   const columns = Object.entries(getDtoSchema.shape)
-    .filter(([, value]) =>
-      accessibleTypes.find((type) => value instanceof type),
-    )
-    .map(([key, value]) => ({
-      key: key as keyof TGetModelDto,
-      value: value as AccessibleTypes,
-    }))
-    .reverse();
+  .filter(([, value]) =>
+    accessibleTypes.find((type) => value instanceof type)
+  )
+  .map(([key, value]) => ({
+    key: key as keyof TGetModelDto,
+    value: value as AccessibleTypes
+  }))
+  .reverse();
   const columnKeys = [
     ...columns.map(({ key }) => ({ key })),
-    { key: "actions" },
+    { key: "actions" }
   ];
 
-  const sortHandler = useCallback((sortDescriptor: SortDescriptor) => {
+  const sortHandler = (sortDescriptor: SortDescriptor) => {
     setSortDescriptor(sortDescriptor);
-  }, []);
+  };
 
-  const getFieldName = useCallback(
-    (column: string | number | symbol) => {
-      let fieldName = tTables(`${service.modelName}.${column.toString()}`);
+  const getFieldName = (column: string | number | symbol) => {
+    let fieldName = tTables(`${service.modelName}.${column.toString()}`);
 
-      if (fieldName === `Tables.${service.modelName}.${column.toString()}`) {
-        fieldName = tTables(column.toString());
-        if (fieldName === `Tables.${column.toString()}`) {
-          fieldName = column.toString();
-        }
+    if (fieldName === `Tables.${service.modelName}.${column.toString()}`) {
+      fieldName = tTables(column.toString());
+      if (fieldName === `Tables.${column.toString()}`) {
+        fieldName = column.toString();
       }
+    }
 
-      return toTitleCase(fieldName);
-    },
-    [t],
-  );
+    return toTitleCase(fieldName);
+  };
 
-  const renderCell = useCallback(
-    (item: any, column: string | number) => {
-      if (column === "actions") {
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content={tTables("Details")}>
+  const renderCell = (item: any, column: string | number) => {
+    if (column === "actions") {
+      return (
+        <div className="relative flex items-center gap-2">
+          <Tooltip content={tTables("Details")}>
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EyeIcon />
               </span>
-            </Tooltip>
-            <ButtonForOpenUpdateModalWindow model={item} service={service} />
-            <Tooltip color="danger" content={tTables("Delete")}>
+          </Tooltip>
+          <ButtonForOpenUpdateModalWindow model={item} service={service} />
+          <Tooltip color="danger" content={tTables("Delete")}>
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon
                   onClick={() => {
@@ -159,33 +157,31 @@ const ModelTable = <TGetModelDto extends ModelDto>({
                   }}
                 />
               </span>
-            </Tooltip>
-            {item.seoAddition !== null ? (
-              <ButtonForOpenUpdateSeoAdditionModalWindow
-                seoAddition={item.seoAddition}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-        );
-      }
-
-      const columnValue = columns.find((c) => c.key === column)?.value;
-      const columnName = Object.entries(accessibleNameTypes).find(
-        ([, type]) => columnValue instanceof type,
-      )?.[0] as AccessibleTypeNames;
-      const columnInfo = columnInfos?.[column as keyof TGetModelDto];
-      const value = getKeyValue(item, column);
-
-      return (
-        columnInfo?.render?.(value) ?? transforms[columnName]?.(value) ?? value
+          </Tooltip>
+          {item.seoAddition !== null ? (
+            <ButtonForOpenUpdateSeoAdditionModalWindow
+              seoAddition={item.seoAddition}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       );
-    },
-    [columns],
-  );
+    }
 
-  const loadItems = useCallback(async () => {
+    const columnValue = columns.find((c) => c.key === column)?.value;
+    const columnName = Object.entries(accessibleNameTypes).find(
+      ([, type]) => columnValue instanceof type
+    )?.[0] as AccessibleTypeNames;
+    const columnInfo = columnInfos?.[column as keyof TGetModelDto];
+    const value = getKeyValue(item, column);
+
+    return (
+      columnInfo?.render?.(value) ?? transforms[columnName]?.(value) ?? value
+    );
+  };
+
+  const loadItems = async () => {
     setLoadingState("loading");
     setError(undefined);
     setPerPageError(undefined);
@@ -203,24 +199,24 @@ const ModelTable = <TGetModelDto extends ModelDto>({
           filters: [],
           sorts: sortDescriptor?.column
             ? [
-                {
-                  column: toPascalCase(sortDescriptor.column.toString()),
-                  sortOrder:
-                    sortDescriptor.direction === "ascending"
-                      ? SortOrder.Asc
-                      : SortOrder.Desc,
-                },
-              ]
-            : [],
-        }),
+              {
+                column: toPascalCase(sortDescriptor.column.toString()),
+                sortOrder:
+                  sortDescriptor.direction === "ascending"
+                    ? SortOrder.Asc
+                    : SortOrder.Desc
+              }
+            ]
+            : []
+        })
       );
       setLoadingState("idle");
     } catch (e) {
       if (e instanceof ZodError) {
         setError(
           Object.entries(e.formErrors.fieldErrors)
-            .map(([key, value]) => `\n${getFieldName(key)}: ${t(value)}`)
-            .join(", "),
+          .map(([key, value]) => `\n${getFieldName(key)}: ${t(value)}`)
+          .join(", ")
         );
         if (e.formErrors.fieldErrors.pageSize)
           setPerPageError(e.formErrors.fieldErrors.pageSize.toString());
@@ -228,7 +224,7 @@ const ModelTable = <TGetModelDto extends ModelDto>({
       else setError(t(e));
       setLoadingState("error");
     }
-  }, [page, sortDescriptor, perPage]);
+  };
 
   useEffect(() => {
     loadItems().then();

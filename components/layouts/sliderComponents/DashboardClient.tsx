@@ -1,6 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
-import React, { useEffect } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Link,
-  Tooltip,
+  Tooltip
 } from "@nextui-org/react";
 import { Icon } from "@iconify-icon/react";
 import { useTranslations } from "use-intl";
@@ -22,10 +22,10 @@ interface DashboardClientProps {
   children: React.ReactNode;
 }
 
-const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
-  const [isOpened, setIsOpened] = React.useState(true);
-  const [isMobileOpened, setIsMobileOpened] = React.useState(false);
-  const sidebarRef = React.useRef<HTMLDivElement>(null);
+const DashboardClient: FC<DashboardClientProps> = ({ children }) => {
+  const [isOpened, setIsOpened] = useState(true);
+  const [isMobileOpened, setIsMobileOpened] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const { width, height } = useWindowDimensions();
   const bigWidth = width >= 768;
   const bigHeight = height >= 640;
@@ -38,8 +38,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
 
   const signOutHandler = async () => {
     await signOut({
-      redirect: true,
-      callbackUrl: "/auth/login",
+      redirect: true
     });
   };
 
