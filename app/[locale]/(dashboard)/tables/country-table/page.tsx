@@ -13,8 +13,8 @@ import ReturnButtonForOpenUpdateWindowFunction from "@/types/model-windows/butto
 import { GetCountryDto } from "@/models/Dto/WithSeoAddition/Countries/get-country-dto";
 import ButtonForOpenUpdateModalWindow from "@/components/shared/models-windows/shared/buttons/ButtonForOpenUpdateModalWindow";
 import RenderFunction from "@/types/table/RenderFunction";
-import ButtonForOpenViewDetailModalWindow from "@/components/shared/models-windows/shared/buttons/ButtonForOpenDetailModalWindow";
 import ReturnButtonForOpenViewDetailWindowFunction from "@/types/model-windows/buttons/view-details-buttons/ReturnButtonForOpenViewDetailWindowFunction";
+import ButtonForOpenViewDetailModalWindow from "@/components/shared/models-windows/shared/Buttons/ButtonForOpenDetailModalWindow";
 
 const CountryTablePage = () => {
   const t = useTranslations("Tables.Countries");
