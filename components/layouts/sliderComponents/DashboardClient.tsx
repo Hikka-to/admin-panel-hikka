@@ -1,7 +1,7 @@
 "use client";
 import { signOut } from "next-auth/react";
 import React, { useEffect } from "react";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Card, CardBody, CardHeader } from "@heroui/card";
 import {
   Button,
   Dropdown,
@@ -10,7 +10,7 @@ import {
   DropdownTrigger,
   Link,
   Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Icon } from "@iconify-icon/react";
 import { useTranslations } from "use-intl";
 

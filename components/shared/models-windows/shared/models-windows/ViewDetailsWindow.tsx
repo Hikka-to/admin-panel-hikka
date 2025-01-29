@@ -1,6 +1,6 @@
 import RenderFunction from '@/types/table/RenderFunction'
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal'
-import { Button } from '@nextui-org/react'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal"
+import { Button } from "@heroui/react"
 import React from 'react'
 import GenerateViewDetailsForGetDto from '../generated-inputs/GenerateViewDetailsForGetDto'
 import { ModelDto } from '@/models/Shared/model-dto'

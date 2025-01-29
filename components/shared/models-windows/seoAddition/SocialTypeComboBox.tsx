@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { Select, SelectItem, SharedSelection } from "@nextui-org/react";
 
 import { SocialType } from "@/models/Dto/SeoAdditions/social-type";
+import { SharedSelection } from "@heroui/system";
+import { Select, SelectItem } from "@heroui/select";
 
 interface SocialTypeSelectorProps {
   onSelectionChanged: (selectedType: SocialType | null | undefined) => void;
@@ -42,8 +43,10 @@ const SocialTypeSelector: React.FC<SocialTypeSelectorProps> = ({
       label="Select the social type"
       placeholder="Select the social type"
       onSelectionChange={innerOnSelectionChanged}
+      onClick={() => console.log(1)}
+      
     >
-      {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
+      {(item:{key:SocialType, label:string}) => <SelectItem key={item.key}>{item.label}</SelectItem>}
     </Select>
   );
 };

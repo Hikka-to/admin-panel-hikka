@@ -1,6 +1,6 @@
 ﻿import "@/styles/globals.css";
 import React from "react";
-import { Card } from "@nextui-org/card";
+import { Card } from "@heroui/card";
 
 export default function AuthLayout({
   children,

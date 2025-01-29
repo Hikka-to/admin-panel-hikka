@@ -1,7 +1,7 @@
 import { LoadingState } from "@react-types/shared";
 import { CrudService } from "@/service/shared/CrudService";
 import { toPascalCase, toTitleCase } from "@/utils/TextUtils";
-import { SortDescriptor } from "@nextui-org/table";
+import { SortDescriptor } from "@heroui/table";
 import { useCallback } from "react";
 import { ZodError } from "zod";
 import { ModelDto } from "@/models/Shared/model-dto";

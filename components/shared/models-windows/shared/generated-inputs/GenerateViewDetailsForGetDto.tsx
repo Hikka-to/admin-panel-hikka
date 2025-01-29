@@ -1,7 +1,7 @@
 "use client"
 import { ModelDto } from '@/models/Shared/model-dto';
 import RenderFunction from '@/types/table/RenderFunction';
-import { Chip, Input } from '@nextui-org/react';
+import { Chip, Input } from "@heroui/react";
 import React, { useCallback } from 'react'
 import { object } from 'zod';
 

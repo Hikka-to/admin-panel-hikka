@@ -2,7 +2,7 @@
 import { ModelDto } from '@/models/Shared/model-dto';
 import FunctionForReturningSpecificInput from '@/types/model-windows/specific-inputs/FunctionForReturningSpecificInput';
 import OnChangeFunctionProps from '@/types/model-windows/specific-inputs/OnChangeFunctionProps';
-import { Input, Select } from '@nextui-org/react';
+import { Input, Select } from "@heroui/react";
 import React, { useCallback } from 'react';
 import { ZodString, ZodNumber, ZodBoolean, ZodDate, z, TypeOf, string, number } from 'zod';
 import ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow from '../../seoAddition/ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow';

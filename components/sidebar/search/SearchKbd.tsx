@@ -1,5 +1,5 @@
-import { Button, Tooltip } from "@nextui-org/react";
-import { Kbd } from "@nextui-org/kbd";
+import { Button, Tooltip } from "@heroui/react";
+import { Kbd } from "@heroui/kbd";
 import React, { useEffect } from "react";
 import { isMacOs } from "react-device-detect";
 import { useTranslations } from "use-intl";

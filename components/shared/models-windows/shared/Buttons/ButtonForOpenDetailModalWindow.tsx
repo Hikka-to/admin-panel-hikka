@@ -1,8 +1,8 @@
 "use client"
 
 import { ModelDto } from '@/AppDtos/Shared/model-dto'
-import { Button, Tooltip } from '@nextui-org/react';
-import {  EyeIcon } from "@nextui-org/shared-icons";
+import { Button, Tooltip } from "@heroui/react";
+import {  EyeIcon } from "@heroui/shared-icons";
 import React, { useState } from 'react'
 import CreateModelWindow from '../models-windows/CreateModelWindow';
 import RenderFunction from '@/types/table/RenderFunction';

@@ -1,7 +1,7 @@
 import React from "react";
-import { forwardRef, Input, InputProps } from "@nextui-org/react";
+import { forwardRef, Input, InputProps } from "@heroui/react";
 import { ClassNameValue } from "tailwind-merge";
-import { useDOMRef } from "@nextui-org/react-utils";
+import { useDOMRef } from "@heroui/react-utils";
 
 interface TransparentInputProps extends InputProps {
   isBlurred?: boolean;

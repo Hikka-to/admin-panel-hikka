@@ -1,7 +1,7 @@
 import React from "react";
-import { Divider } from "@nextui-org/divider";
+import { Divider } from "@heroui/divider";
 import { Icon } from "@iconify-icon/react";
-import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
 import { useTranslations } from "use-intl";
 
 import { ModelDto } from "@/models/Shared/model-dto";

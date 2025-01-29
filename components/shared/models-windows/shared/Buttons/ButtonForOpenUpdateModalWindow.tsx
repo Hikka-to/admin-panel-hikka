@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
-import { Tooltip } from '@nextui-org/react';
-import { DeleteIcon, EditIcon, EyeIcon } from "@nextui-org/shared-icons";
+import { Tooltip } from "@heroui/react";
+import { DeleteIcon, EditIcon, EyeIcon } from "@heroui/shared-icons";
 import { CrudService } from '@/service/shared/CrudService';
 import EditModelWindow from '../models-windows/EditModelWindow';
 import ButtonForOpenUpdateModalWindowProps from '@/types/model-windows/buttons/update-buttons/ButtonForOpenUpdateModalWindowProps';

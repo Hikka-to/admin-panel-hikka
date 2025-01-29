@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Link } from "@nextui-org/react";
-import { CardBody, CardHeader } from "@nextui-org/card";
-import { Divider } from "@nextui-org/divider";
+import { Button, Link } from "@heroui/react";
+import { CardBody, CardHeader } from "@heroui/card";
+import { Divider } from "@heroui/divider";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 import { useTranslations } from "use-intl";
