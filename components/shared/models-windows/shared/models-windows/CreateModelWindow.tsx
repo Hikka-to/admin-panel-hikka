@@ -1,8 +1,8 @@
 import { CrudService } from '@/service/shared/CrudService'
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import React, { ReactElement, useEffect, useState } from 'react'
 import GenerateCreateInputForCreateDtoScheme from '../generated-inputs/GenerateCreateInputForCreateDtoScheme';
-import { Button } from '@nextui-org/react';
+import { Button } from "@heroui/react";
 import { number, string, ZodError } from 'zod';
 import ZodErrorModalWindow from './ZodErrorModalWindow';
 import SpecificInput from '@/types/model-windows/specific-inputs/SpecificInput';

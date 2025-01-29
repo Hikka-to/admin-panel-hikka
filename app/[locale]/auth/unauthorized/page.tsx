@@ -1,6 +1,6 @@
 ﻿"use client";
-import { Button } from "@nextui-org/react";
-import { CardHeader } from "@nextui-org/card";
+import { Button } from "@heroui/react";
+import { CardHeader } from "@heroui/card";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useTranslations } from "use-intl";

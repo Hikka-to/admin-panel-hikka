@@ -1,6 +1,6 @@
 "use client"
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import { Button } from '@nextui-org/react';
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
+import { Button } from "@heroui/react";
 import { error } from 'console';
 import React, { useState } from 'react'
 import { ZodIssue } from 'zod'

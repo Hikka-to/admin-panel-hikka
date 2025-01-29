@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { Table, TableBody, TableColumn, TableHeader } from "@nextui-org/table";
+import { Table, TableBody, TableColumn, TableHeader } from "@heroui/table";
 import {
   getKeyValue,
   Pagination,
@@ -11,11 +11,11 @@ import {
   TableRow,
   TableSlots,
   Tooltip,
-} from "@nextui-org/react";
-import { Chip } from "@nextui-org/chip";
+} from "@heroui/react";
+import { Chip } from "@heroui/chip";
 import { LoadingState } from "@react-types/shared";
 import { Icon } from "@iconify-icon/react";
-import { DeleteIcon, EyeIcon } from "@nextui-org/shared-icons";
+import { DeleteIcon, EyeIcon } from "@heroui/shared-icons";
 import { ZodBoolean, ZodDate, ZodError, ZodNumber, ZodString } from "zod";
 import { useTranslations } from "use-intl";
 
@@ -32,8 +32,6 @@ import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagina
 import useDebounceState from "@/hooks/useDebounceState";
 
 import ButtonForOpenUpdateSeoAdditionModalWindowInTable from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindowInTable";
-import ButtonForOpenUpdateModalWindow from "../shared/models-windows/shared/buttons/ButtonForOpenUpdateModalWindow";
-import ButtonForOpenCreateModalWindow from "../shared/models-windows/shared/buttons/ButtonForOpenCreateModalWindow";
 import ReturnButtonForOpenUpdateWindowFunction from "@/types/model-windows/buttons/update-buttons/ReturnButtonForOpenUpdateWindowFunction";
 import ReturnButtonForOpenCreateWindowFunction from "@/types/model-windows/buttons/create-buttons/ReturnButtonForOpenCreateWindowFunction";
 import ReturnButtonForOpenViewDetailWindowFunction from "@/types/model-windows/buttons/view-details-buttons/ReturnButtonForOpenViewDetailWindowFunction";
@@ -152,7 +150,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
 
     if (column === "actions") {
       return (
-        <div className="relative flex items-center gap-2">
+        <div className="relative flex items-center justify-center gap-2">
           {
             viewDetailButton(
               item

@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchIcon } from "@nextui-org/shared-icons";
+import { SearchIcon } from "@heroui/shared-icons";
 import { isDesktop } from "react-device-detect";
 import { useTranslations } from "use-intl";
 

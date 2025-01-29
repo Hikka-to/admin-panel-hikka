@@ -1,5 +1,5 @@
 import { CrudService } from '@/service/shared/CrudService'
-import { Button } from '@nextui-org/react'
+import { Button } from "@heroui/react"
 import React, { useState } from 'react'
 import CreateModelWindow from '../models-windows/CreateModelWindow'
 import ButtonForOpenCreateModalWindowProps from '@/types/model-windows/buttons/create-buttons/ButtonForOpenCreateModalWindowProps'

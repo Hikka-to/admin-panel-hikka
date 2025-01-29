@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Tooltip } from "@nextui-org/react";
-import { EditIcon } from "@nextui-org/shared-icons";
+import { Tooltip } from "@heroui/react";
+import { EditIcon } from "@heroui/shared-icons";
 import { useTranslations } from "use-intl";
 
 import { GetSeoAdditionDto } from "@/models/Dto/SeoAdditions/get-seo-addition-dto";

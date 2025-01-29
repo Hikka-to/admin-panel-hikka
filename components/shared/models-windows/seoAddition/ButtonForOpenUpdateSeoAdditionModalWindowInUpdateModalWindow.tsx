@@ -2,7 +2,7 @@
 import { GetSeoAdditionDto } from '@/models/Dto/SeoAdditions/get-seo-addition-dto';
 import React, { useState } from 'react'
 import ModalWindowForUpdateSeoAddition from './ModalWindowForUpdateSeoAddition';
-import { Button } from '@nextui-org/react';
+import { Button } from "@heroui/react";
 
 const ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow = ({
   seoAddition,

@@ -4,7 +4,7 @@ import FunctionForReturningSpecificInput from '@/types/model-windows/specific-in
 import ReturnButtonForOpenCreateWindowFunction from '@/types/model-windows/buttons/create-buttons/ReturnButtonForOpenCreateWindowFunction';
 import OnChangeFunctionProps from '@/types/model-windows/specific-inputs/OnChangeFunctionProps';
 import SpecificInput from '@/types/model-windows/specific-inputs/SpecificInput';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from "@heroui/react";
 import React, { ReactElement, useCallback, useState } from 'react'
 import { ZodBoolean, ZodDate, ZodNumber, ZodString, z } from 'zod';
 import { ModelDto } from '@/models/Shared/model-dto';

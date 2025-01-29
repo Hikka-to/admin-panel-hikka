@@ -1,7 +1,7 @@
 ﻿import React from "react";
-import { EyeFilledIcon, EyeSlashFilledIcon } from "@nextui-org/shared-icons";
-import { forwardRef, Input, InputProps } from "@nextui-org/react";
-import { useDOMRef } from "@nextui-org/react-utils";
+import { EyeFilledIcon, EyeSlashFilledIcon } from "@heroui/shared-icons";
+import { forwardRef, Input, InputProps } from "@heroui/react";
+import { useDOMRef } from "@heroui/react-utils";
 
 interface PasswordInputProps extends Omit<InputProps, "type" | "endContent"> {}
 

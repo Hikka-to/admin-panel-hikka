@@ -1,6 +1,6 @@
 "use client"
 import { CrudService } from '@/service/shared/CrudService'
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/react";
 import React, { ReactElement, useEffect, useState } from 'react'
 import { ZodError } from 'zod';
 import GenerateEditInputForUpdateDtoScheme from '../generated-inputs/GenerateEditInputForUpdateDtoScheme';

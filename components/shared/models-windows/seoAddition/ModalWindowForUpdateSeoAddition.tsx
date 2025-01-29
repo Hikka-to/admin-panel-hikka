@@ -8,7 +8,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import { GetSeoAdditionDto } from "@/models/Dto/SeoAdditions/get-seo-addition-dto";
 import { SeoAdditionService } from "@/service/crudServices/SeoAdditionService";
