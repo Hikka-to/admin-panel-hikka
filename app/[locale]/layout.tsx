@@ -28,13 +28,22 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function LocaleLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
+export default async function LocaleLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: { locale: string };
+  }>
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   const messages = await getMessages();
 
   return (
