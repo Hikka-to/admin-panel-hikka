@@ -4,6 +4,8 @@ import RenderFunction from '@/types/table/RenderFunction';
 import { Chip, Input } from "@heroui/react";
 import React, { useCallback } from 'react'
 import { object } from 'zod';
+import ButtonForOpenViewSeoAdditionWindow from '../../seoAddition/view/ButtonForOpenViewSeoAdditionWindow';
+import { GetSeoAdditionDto } from '@/models/Dto/SeoAdditions/get-seo-addition-dto';
 
 const GenerateViewDetailsForGetDto = <TGetModel extends ModelDto>(
   {
@@ -18,6 +20,18 @@ const GenerateViewDetailsForGetDto = <TGetModel extends ModelDto>(
   const renderInput = useCallback((field: keyof typeof model) => {
     const fieldValue = model[field];
 
+ if (field == "seoAddition")
+            {
+
+                return (
+                    <ButtonForOpenViewSeoAdditionWindow
+                    seoAddition={fieldValue as GetSeoAdditionDto}
+                    key={field}
+                    />
+                )
+            }
+    
+
     if (specificRenderMap.has(field as string)) {
       const func = specificRenderMap.get(field as string);
 
@@ -30,6 +44,7 @@ const GenerateViewDetailsForGetDto = <TGetModel extends ModelDto>(
       case "string":
         return (
           <Input
+          key={field as string}
             type="text"
             label={field as string}
             placeholder={field as string}
@@ -41,6 +56,7 @@ const GenerateViewDetailsForGetDto = <TGetModel extends ModelDto>(
       case "number":
         return (
           <Input
+          key={field as string}
             type="number"
             label={field as string}
             name={field as string}
@@ -49,7 +65,7 @@ const GenerateViewDetailsForGetDto = <TGetModel extends ModelDto>(
         );
       case "boolean":
         return (
-          <Chip color={fieldValue ? "success" : "danger"}>
+          <Chip key={field as string} color={fieldValue ? "success" : "danger"}>
             {fieldValue ? "True" : "False"}
           </Chip>
         );

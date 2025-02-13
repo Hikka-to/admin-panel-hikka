@@ -3,9 +3,9 @@ import { ModelDto } from '@/models/Shared/model-dto';
 import FunctionForReturningSpecificInput from '@/types/model-windows/specific-inputs/FunctionForReturningSpecificInput';
 import OnChangeFunctionProps from '@/types/model-windows/specific-inputs/OnChangeFunctionProps';
 import { Input, Select } from "@heroui/react";
-import React, { useCallback } from 'react';
+import React, { JSX, useCallback } from 'react';
 import { ZodString, ZodNumber, ZodBoolean, ZodDate, z, TypeOf, string, number } from 'zod';
-import ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow from '../../seoAddition/ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow';
+import ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow from '../../seoAddition/update/ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow';
 
 const accessibleNameTypes = {
     string: ZodString,
@@ -53,11 +53,11 @@ function GenerateEditInputForUpdateDtoScheme<T extends Record<string, any>>({
 
         if (field == "seoAddition")
             {
-                console.debug(updateObject);
 
                 return (
                     <ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow
                     seoAddition={fieldValue}
+                    key={field}
                     />
                 )
             }
@@ -76,6 +76,8 @@ function GenerateEditInputForUpdateDtoScheme<T extends Record<string, any>>({
             case "string":
                 return (
                     <Input
+
+                    key={field as string}
                         type="text"
                         label= {field as string}
                         placeholder={field as string}
@@ -88,6 +90,7 @@ function GenerateEditInputForUpdateDtoScheme<T extends Record<string, any>>({
             case "number":
                 return (
                     <Input
+                    key={field as string}
                         type="number"
                         label= {field as string}
                         name={field as string}
@@ -99,6 +102,7 @@ function GenerateEditInputForUpdateDtoScheme<T extends Record<string, any>>({
             case "boolean":
                 return (
                     <select 
+                        key={field as string}
                         name={field as string}
                         onChange={(e) => onChange(e, typeof fieldValue)}>
                         <option value="">Select</option>

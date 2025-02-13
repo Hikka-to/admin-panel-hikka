@@ -31,7 +31,7 @@ import TransparentInput from "@/components/inputs/TransparentInput";
 import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import useDebounceState from "@/hooks/useDebounceState";
 
-import ButtonForOpenUpdateSeoAdditionModalWindowInTable from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindowInTable";
+import ButtonForOpenUpdateSeoAdditionModalWindowInTable from "../shared/models-windows/seoAddition/update/ButtonForOpenUpdateSeoAdditionModalWindowInTable";
 import ReturnButtonForOpenUpdateWindowFunction from "@/types/model-windows/buttons/update-buttons/ReturnButtonForOpenUpdateWindowFunction";
 import ReturnButtonForOpenCreateWindowFunction from "@/types/model-windows/buttons/create-buttons/ReturnButtonForOpenCreateWindowFunction";
 import ReturnButtonForOpenViewDetailWindowFunction from "@/types/model-windows/buttons/view-details-buttons/ReturnButtonForOpenViewDetailWindowFunction";

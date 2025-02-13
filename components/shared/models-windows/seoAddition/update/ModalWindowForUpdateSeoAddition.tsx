@@ -16,7 +16,7 @@ import { useAuthService } from "@/hooks/auth";
 import { UpdateSeoAdditionDto } from "@/models/Dto/SeoAdditions/update-seo-addition-dto";
 import { SocialType } from "@/models/Dto/SeoAdditions/social-type";
 
-import SocialTypeSelector from "./SocialTypeComboBox";
+import SocialTypeSelector from "../SocialTypeComboBox";
 const ModalWindowForUpdateSeoAddition = ({
   isOpen,
   onClose,
@@ -34,7 +34,8 @@ const ModalWindowForUpdateSeoAddition = ({
 
   const stringKeys = Object.keys(seoAddition).filter(
     (key) =>
-      typeof seoAddition[key as keyof typeof seoAddition] === "string" &&
+      (typeof seoAddition[key as keyof typeof seoAddition] === "string" ||
+     seoAddition[key as keyof typeof seoAddition] === null) &&
       key !== "socialType" &&
       seoAddition[key as keyof typeof seoAddition] !== undefined &&
       !key.toLowerCase().includes("id"),
