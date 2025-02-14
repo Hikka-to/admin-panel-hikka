@@ -23,7 +23,7 @@ const ButtonForOpenUpdateSeoAdditionModalWindowInUpdateModalWindow = ({
     <>
         <Button 
             color='default'
-            onClick={openModal}
+            onPress={openModal}
         >
             Update Seo Addition
         </Button>

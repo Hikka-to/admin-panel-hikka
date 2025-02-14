@@ -31,7 +31,7 @@ import TransparentInput from "@/components/inputs/TransparentInput";
 import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
 import useDebounceState from "@/hooks/useDebounceState";
 
-import ButtonForOpenUpdateSeoAdditionModalWindowInTable from "../shared/models-windows/seoAddition/ButtonForOpenUpdateSeoAdditionModalWindowInTable";
+import ButtonForOpenUpdateSeoAdditionModalWindowInTable from "../shared/models-windows/seoAddition/update/ButtonForOpenUpdateSeoAdditionModalWindowInTable";
 import ReturnButtonForOpenUpdateWindowFunction from "@/types/model-windows/buttons/update-buttons/ReturnButtonForOpenUpdateWindowFunction";
 import ReturnButtonForOpenCreateWindowFunction from "@/types/model-windows/buttons/create-buttons/ReturnButtonForOpenCreateWindowFunction";
 import ReturnButtonForOpenViewDetailWindowFunction from "@/types/model-windows/buttons/view-details-buttons/ReturnButtonForOpenViewDetailWindowFunction";
@@ -204,20 +204,49 @@ const ModelTable = <TGetModelDto extends ModelDto>
     return columnInfo?.render?.(value) ?? transforms[columnName as AccessibleTypeNames]?.(value) ?? value;
   }, [columns]);
 
-  const loadItems = useGetPageOfItems<
-    TGetModelDto,
-    typeof service
-  >(
-    service,
-    perPage,
-    page,
-    sortDescriptor,
-    setLoadingState,
-    setError,
-    setPerPage,
-    setItems,
-    status
-  );
+  const loadItems = useCallback(async () => {
+    setLoadingState("loading");
+    setError(undefined);
+    setPerPageError(undefined);
+    if (status !== "success") {
+      setLoadingState(status as LoadingState);
+      return;
+    }
+    try {
+      setItems(undefined);
+      setItems(
+        await service.getAll({
+          pageNumber: page ? parseInt(page) : 1,
+          pageSize: perPage ? parseInt(perPage) || 10 : 10,
+          filters: [],
+          sorts: sortDescriptor?.column
+            ? [
+                {
+                  column: toPascalCase(sortDescriptor.column.toString()),
+                  sortOrder:
+                    sortDescriptor.direction === "ascending"
+                      ? SortOrder.Asc
+                      : SortOrder.Desc,
+                },
+              ]
+            : [],
+        })
+      );
+      setLoadingState("idle");
+    } catch (e) {
+      if (e instanceof ZodError) {
+        setError(
+          Object.entries(e.formErrors.fieldErrors)
+            .map(([key, value]) => `\n${toTitleCase(key)}: ${value}`)
+            .join(", ")
+        );
+        if (e.formErrors.fieldErrors.pageSize)
+          setPerPageError(e.formErrors.fieldErrors.pageSize.toString());
+      } else if (e instanceof Error) setError(e.message);
+      else setError(`${e}`);
+      setLoadingState("error");
+    }
+  }, [page, sortDescriptor, perPage]);
 
   useEffect(() => {
     loadItems().then();

@@ -1,12 +1,12 @@
 "use client"
 
-import { ModelDto } from '@/AppDtos/Shared/model-dto'
 import { Button, Tooltip } from "@heroui/react";
 import {  EyeIcon } from "@heroui/shared-icons";
 import React, { useState } from 'react'
 import CreateModelWindow from '../models-windows/CreateModelWindow';
 import RenderFunction from '@/types/table/RenderFunction';
 import ViewDetailsWindow from '../models-windows/ViewDetailsWindow';
+import { ModelDto } from "@/models/Shared/model-dto";
 
 const ButtonForOpenViewDetailModalWindow = <TGetModelDto extends ModelDto>({
   model,

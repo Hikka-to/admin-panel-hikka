@@ -2,7 +2,7 @@ import { CrudService } from '@/service/shared/CrudService'
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import React, { ReactElement, useEffect, useState } from 'react'
 import GenerateCreateInputForCreateDtoScheme from '../generated-inputs/GenerateCreateInputForCreateDtoScheme';
-import { Button } from "@heroui/react";
+import { Button, Form } from "@heroui/react";
 import { number, string, ZodError } from 'zod';
 import ZodErrorModalWindow from './ZodErrorModalWindow';
 import SpecificInput from '@/types/model-windows/specific-inputs/SpecificInput';
@@ -20,21 +20,21 @@ const CreateModelWindow = <Service extends CrudService<ModelDto, object, ModelDt
         isOpen: boolean,
         onClose: () => void,
         service: Service,
-        specificInputMap : Map<string, FunctionForReturningSpecificInput<ModelDto>>
+        specificInputMap: Map<string, FunctionForReturningSpecificInput<ModelDto>>
     }
 ) => {
 
     const [initialForm, setInitialForm] = useState(service.createDtoSchema.parse({}));
 
 
-
+    const [errorsForm, setErrorsForm] = useState({});
     const [form, setForm] = useState({ ...initialForm });
     const [isError, setIsError] = useState(false);
     const [errors, setErros] = useState<Zod.ZodIssue[]>([]);
 
 
-    
-   const clearState = () => {
+
+    const clearState = () => {
         setForm({ ...initialForm });
     };
 
@@ -81,27 +81,40 @@ const CreateModelWindow = <Service extends CrudService<ModelDto, object, ModelDt
                         <>
                             <ModalHeader className="flex flex-col gap-1">Create the model</ModalHeader>
                             <ModalBody>
-                                {
-                                    <GenerateCreateInputForCreateDtoScheme
-                                        createScheme={service.createDtoSchema}
-                                        form={form}
-                                        onChange={onChange}
-                                        specificInputMap={
-                                            specificInputMap
-                                        }
-                                    />
-                                }
+                                <Form
+                                    className="w-full max-w-xs flex flex-col gap-4"
+                                    validationBehavior="native"
+                                    validationErrors={errorsForm}
+                                    onSubmit={async (e) => {
+                                        e.preventDefault();
+                                        await handleSubmit();
+                                    }}
+                                >
+                                    {
+                                        <GenerateCreateInputForCreateDtoScheme
+                                            createScheme={service.createDtoSchema}
+                                            form={form}
+                                            onChange={onChange}
+                                            specificInputMap={
+                                                specificInputMap
+                                            }
+                                        />
+                                    }
+                                    <div className="flex gap-2">
+                                        <Button color="danger" variant="light" onPress={onClose}>
+                                            Close
+                                        </Button>
+                                        <Button type="reset" variant="flat" onPress={clearState}>
+                                            Reset
+                                        </Button>
 
+                                        <Button color="primary" type='submit' onSubmit={handleSubmit}>
+                                            submit
+                                        </Button>
+                                    </div>
+                                </Form>
 
                             </ModalBody>
-                            <ModalFooter>
-                                <Button color="danger" variant="light" onPress={onClose}>
-                                    Close
-                                </Button>
-                                <Button color="primary" onPress={handleSubmit}>
-                                    submit
-                                </Button>
-                            </ModalFooter>
                         </>
                     )}
                 </ModalContent>

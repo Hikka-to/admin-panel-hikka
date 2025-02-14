@@ -5,8 +5,8 @@ import { EditIcon } from "@heroui/shared-icons";
 import { useTranslations } from "use-intl";
 
 import { GetSeoAdditionDto } from "@/models/Dto/SeoAdditions/get-seo-addition-dto";
-
 import ModalWindowForUpdateSeoAddition from "./ModalWindowForUpdateSeoAddition";
+
 
 const ButtonForOpenUpdateSeoAdditionModalWindowInTable = ({
   seoAddition,
