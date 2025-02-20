@@ -1,7 +1,6 @@
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
-import { usePathname, useRouter } from "@/i18n/routing";
 
 export default function useSearchParam(param: string) {
   const search = useSearchParams();

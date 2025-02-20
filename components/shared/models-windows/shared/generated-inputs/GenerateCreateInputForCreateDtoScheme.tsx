@@ -124,7 +124,7 @@ const GenerateCreateInputForCreateDtoScheme = (
                     </select>
                 );
             default:
-                return <p>Unsupported type: {typeof fieldValue}</p>;
+                return <p key={field as string}>Unsupported type: {typeof fieldValue}</p>;
         }
     }, [onChange]);
 

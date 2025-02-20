@@ -7,7 +7,6 @@ import { CardBody, CardHeader } from "@heroui/card";
 import { Divider } from "@heroui/divider";
 import { signIn } from "next-auth/react";
 import axios from "axios";
-import { useTranslations } from "use-intl";
 
 import PasswordInput from "@/components/inputs/PasswordInput";
 import { useAuth } from "@/hooks/auth";
@@ -21,7 +20,6 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { status } = useAuth({ redirect: true });
-  const t = useTranslations();
 
   // Errors
   const [error, setError] = useState("");
@@ -83,7 +81,7 @@ const RegisterPage = () => {
           	space-y-2
           	justify-between"
       >
-        <h1 className="text-2xl font-bold">{t("Auth.Registration")}</h1>
+        <h1 className="text-2xl font-bold">{"Registration"}</h1>
         <Button
           showAnchorIcon
           as={Link}
@@ -91,7 +89,7 @@ const RegisterPage = () => {
           href="/auth/login"
           variant="solid"
         >
-          {t("Auth.Login")}
+          {"Login"}
         </Button>
       </CardHeader>
       <Divider />
@@ -106,14 +104,14 @@ const RegisterPage = () => {
         >
           <TransparentInput
             required
-            placeholder={t("Auth.Username")}
+            placeholder={"Username"}
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <TransparentInput
             required
-            placeholder={t("Auth.Email")}
+            placeholder={"Email"}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -121,22 +119,22 @@ const RegisterPage = () => {
           <TransparentInput
             required
             as={PasswordInput}
-            placeholder={t("Auth.Password")}
+            placeholder={"Password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <TransparentInput
             required
             as={PasswordInput}
-            errorMessage={t("Passwords do not match")}
+            errorMessage={"Passwords do not match"}
             isInvalid={showConfirmPasswordError}
-            placeholder={t("Auth.Confirm Password")}
+            placeholder={"Confirm Password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {error && <p className="text-red-500 w-full">{t(error)}</p>}
+          {error && <p className="text-red-500 w-full">{error}</p>}
           <Button color="primary" isLoading={isLoading} type="submit">
-            {t("Auth.Register")}
+            {"Register"}
           </Button>
         </form>
       </CardBody>

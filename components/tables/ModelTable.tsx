@@ -17,7 +17,6 @@ import { LoadingState } from "@react-types/shared";
 import { Icon } from "@iconify-icon/react";
 import { DeleteIcon, EyeIcon } from "@heroui/shared-icons";
 import { ZodBoolean, ZodDate, ZodError, ZodNumber, ZodString } from "zod";
-import { useTranslations } from "use-intl";
 
 import { ModelDto } from "@/models/Shared/model-dto";
 import { CrudService } from "@/service/shared/CrudService";
@@ -25,7 +24,7 @@ import useSearchParam from "@/hooks/useSearchParam";
 import { ReturnPageDto } from "@/models/Shared/return-page-dto";
 import { ColumnInfos } from "@/types/table/ColumnInfo";
 import { toPascalCase, toTitleCase } from "@/utils/TextUtils";
-import { useAuthService } from "@/hooks/auth";
+import { useAuth, useAuthService } from "@/hooks/auth";
 import { SortOrder } from "@/models/Dto/SharedDtos/sort-order";
 import TransparentInput from "@/components/inputs/TransparentInput";
 import { filterPaginationDtoSchema } from "@/models/Dto/SharedDtos/filter-pagination-dto";
@@ -176,12 +175,12 @@ const ModelTable = <TGetModelDto extends ModelDto>
             </span>
           </Tooltip>
           {item.seoAddition !== null ? (
-              <ButtonForOpenUpdateSeoAdditionModalWindowInTable
-                seoAddition={item.seoAddition}
-              />
-            ) : (
-              <></>
-            )}
+            <ButtonForOpenUpdateSeoAdditionModalWindowInTable
+              seoAddition={item.seoAddition}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       );
     }
@@ -214,6 +213,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
     }
     try {
       setItems(undefined);
+      console.log("request making");
       setItems(
         await service.getAll({
           pageNumber: page ? parseInt(page) : 1,
@@ -221,14 +221,14 @@ const ModelTable = <TGetModelDto extends ModelDto>
           filters: [],
           sorts: sortDescriptor?.column
             ? [
-                {
-                  column: toPascalCase(sortDescriptor.column.toString()),
-                  sortOrder:
-                    sortDescriptor.direction === "ascending"
-                      ? SortOrder.Asc
-                      : SortOrder.Desc,
-                },
-              ]
+              {
+                column: toPascalCase(sortDescriptor.column.toString()),
+                sortOrder:
+                  sortDescriptor.direction === "ascending"
+                    ? SortOrder.Asc
+                    : SortOrder.Desc,
+              },
+            ]
             : [],
         })
       );
@@ -246,7 +246,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
       else setError(`${e}`);
       setLoadingState("error");
     }
-  }, [page, sortDescriptor, perPage]);
+  }, [page, sortDescriptor, perPage, status]);
 
   useEffect(() => {
     loadItems().then();
@@ -266,7 +266,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
             <TableColumn className="items-center"
               key={column.key.toString()}
               align={column.key === "actions" ? "center" : "start"}
-            allowsSorting={column.key !== "actions" || !dontAllowSort.includes(column.key)}>
+              allowsSorting={column.key !== "actions" || !dontAllowSort.includes(column.key)}>
               {columnInfos[column.key]?.title ?? toTitleCase(column.key.toString())}
             </TableColumn>}
         </TableHeader>
@@ -284,7 +284,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
         >
           {(item) => (
             <TableRow key={item.id}>
-              {(column) => <TableCell>{renderCell(item, column)}</TableCell>}
+              {(column:any) => <TableCell>{renderCell(item, column)}</TableCell>}
             </TableRow>
           )}
         </TableBody>
@@ -295,7 +295,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
           labelPlacement="outside-left" label="Items Per Page"
           placeholder="10"
           value={perPageState}
-          onChange={(e) => setPerPageState(e.target.value)}
+          onChange={(e:any) => setPerPageState(e.target.value)}
           isInvalid={!!perPageError}
           errorMessage={perPageError}
           min={perPageMin ?? undefined}
@@ -313,7 +313,7 @@ const ModelTable = <TGetModelDto extends ModelDto>
             color="primary"
             page={page ? parseInt(page) : 1}
             total={items.howManyPages}
-            onChange={(page) => setPage(page > 1 ? (page).toString() : "")}
+            onChange={(page:any) => setPage(page > 1 ? (page).toString() : "")}
           />
         ) : null}
       </div>

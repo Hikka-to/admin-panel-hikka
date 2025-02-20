@@ -53,18 +53,22 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      return { ...token, ...user };
+      const t = await token;
+      const u = await user;
+      return {  ...t, ...u };
     },
 
     async session({ session, token }) {
-      const user = token as { accessToken: string } & DecodedToken;
+      const user = await token as { accessToken: string } & DecodedToken;
+      let ses = await session;
+
 
       user.accessToken = getToken(user.accessToken)!;
 
-      session.user = user;
-      session.user.name = user.unique_name;
+      ses.user = user;
+      ses.user.name = user.unique_name;
 
-      return session;
+      return ses;
     },
   },
 });

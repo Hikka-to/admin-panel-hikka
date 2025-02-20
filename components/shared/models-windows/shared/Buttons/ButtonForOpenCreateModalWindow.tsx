@@ -1,3 +1,4 @@
+"use client"
 import { CrudService } from '@/service/shared/CrudService'
 import { Button } from "@heroui/react"
 import React, { useState } from 'react'

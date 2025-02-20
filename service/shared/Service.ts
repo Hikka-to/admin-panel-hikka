@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 import { axiosAgent } from "@/utils/AxionAgent";
 
+
 export default abstract class Service {
   protected axiosInstance: AxiosInstance;
   protected jwtToken?: string;
@@ -13,7 +14,7 @@ export default abstract class Service {
       baseURL:
         process.env.NEXT_PUBLIC_BASE_URL +
         (addUrl ?? this.constructor.name.replace(/^(.*?)(Service)?$/, "$1")),
-      timeout: 5000,
+      timeout: 50000,
       httpsAgent: axiosAgent,
     });
     this.axiosInstance.interceptors.response.use(
@@ -27,22 +28,22 @@ export default abstract class Service {
           return Promise.reject(
             new Error(
               "Method not allowed. Allowed methods: " +
-                error.response.headers["allow"],
-            ),
+                error.response.headers["allow"]
+            )
           );
         }
 
         return Promise.reject(
-          error instanceof Error ? error : new Error(error),
+          error instanceof Error ? error : new Error(error)
         );
-      },
+      }
     );
   }
 
   public get addUrl(): string {
     return this.axiosInstance.defaults.baseURL!.replace(
       new RegExp(`^${process.env.NEXT_PUBLIC_BASE_URL}(.*)$`),
-      "$1",
+      "$1"
     );
   }
 
@@ -65,9 +66,9 @@ export default abstract class Service {
       },
       (error) => {
         return Promise.reject(
-          error instanceof Error ? error : new Error(error),
+          error instanceof Error ? error : new Error(error)
         );
-      },
+      }
     );
   }
 }

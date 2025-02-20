@@ -70,7 +70,7 @@ const GenerateViewDetailsForGetDto = <TGetModel extends ModelDto>(
           </Chip>
         );
       default:
-        return <p>Unsupported type: {typeof fieldValue}</p>;
+        return <p key={field as string} >Unsupported type: {typeof fieldValue}</p>;
     }
   }, [model, specificRenderMap]);
 

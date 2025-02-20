@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { DecodedToken } from "@/types/DecodedToken";
 import Service from "@/service/shared/Service";
-import { usePathname, useRouter } from "@/i18n/routing";
+import { usePathname, useRouter } from "next/navigation";
 
 interface AuthProps {
   requiredRoles?: string[];
@@ -72,6 +72,7 @@ export const useAuthService = (
   if (status == "loading") return status;
   if (status == "unauthorized") return "error";
   service.addJWTtoken(user!.accessToken);
+  
 
   return "success";
 };

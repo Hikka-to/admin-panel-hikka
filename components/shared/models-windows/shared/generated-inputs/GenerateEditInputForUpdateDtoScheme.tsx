@@ -111,7 +111,7 @@ function GenerateEditInputForUpdateDtoScheme<T extends Record<string, any>>({
                     </select>
                 );
             default:
-                return <p>Unsupported type: {typeof fieldValue}</p>;
+                return <p key={field as string}>Unsupported type: {typeof fieldValue}</p>;
         }
     }, [onChange]);
 

@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { CardBody, CardHeader } from "@heroui/card";
 import { Divider } from "@heroui/divider";
 import { Button, Link } from "@heroui/react";
-import { useTranslations } from "use-intl";
 
 import PasswordInput from "@/components/inputs/PasswordInput";
 import { useAuth } from "@/hooks/auth";
@@ -18,7 +17,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { status } = useAuth({ redirect: true });
-  const t = useTranslations();
 
   const onSubmit = async (e: any) => {
     setIsLoading(true);
@@ -54,7 +52,7 @@ const LoginPage = () => {
         	space-y-2
         	justify-between"
       >
-        <h1 className="text-2xl font-bold">{t("Auth.Login")}</h1>
+        <h1 className="text-2xl font-bold">{"Login"}</h1>
         <Button
           showAnchorIcon
           as={Link}
@@ -62,7 +60,7 @@ const LoginPage = () => {
           href="/auth/registrate"
           variant="solid"
         >
-          {t("Auth.Registration")}
+          {"Registration"}
         </Button>
       </CardHeader>
       <Divider />
@@ -77,7 +75,7 @@ const LoginPage = () => {
         >
           <TransparentInput
             required
-            placeholder={t("Auth.Email")}
+            placeholder={"Email"}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -85,15 +83,15 @@ const LoginPage = () => {
           <TransparentInput<typeof PasswordInput>
             required
             as={PasswordInput}
-            placeholder={t("Auth.Password")}
+            placeholder={"Password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {errorMessage && (
-            <p className="text-red-500 w-full">{t(errorMessage)}</p>
+            <p className="text-red-500 w-full">{errorMessage}</p>
           )}
           <Button color="primary" isLoading={isLoading} type="submit">
-            {t("Auth.Login")}
+            {"Login"}
           </Button>
         </form>
       </CardBody>

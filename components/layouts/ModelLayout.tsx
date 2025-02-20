@@ -2,7 +2,6 @@ import React from "react";
 import { Divider } from "@heroui/divider";
 import { Icon } from "@iconify-icon/react";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
-import { useTranslations } from "use-intl";
 
 import { ModelDto } from "@/models/Shared/model-dto";
 import ModelTable, { ModelTableProps } from "@/components/tables/ModelTable";
@@ -18,7 +17,6 @@ export default function ModelLayout<TGetModelDto extends ModelDto>({
   icon,
   ...otherProps
 }: Readonly<ModelLayoutProps<TGetModelDto>>) {
-  const t = useTranslations();
 
   return (
     <div className="grid grid-rows-[auto,auto,minmax(0,1fr)] h-full gap-5 [@media(max-height:640px)]:grid-rows-[auto,minmax(0,1fr)]">
@@ -29,7 +27,7 @@ export default function ModelLayout<TGetModelDto extends ModelDto>({
             <Icon className="text-2xl" icon="lets-icons:home-duotone" />
           }
         >
-          {t("Home.Home")}
+          {"Home"}
         </BreadcrumbItem>
         <BreadcrumbItem startContent={<p className="text-2xl h-6">{icon}</p>}>
           {title}

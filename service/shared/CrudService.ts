@@ -71,10 +71,17 @@ export abstract class CrudService<
   public async getAll(
     paginationDto: FilterPaginationDto,
   ): Promise<ReturnPageDto<TGetModelDto>> {
+
+     console.log("Current JWT token before request:", this.jwtToken);
+  console.log("Current interceptors:", this.axiosInstance.interceptors.request);
+
+
+
     return (
       await this.axiosInstance.post<ReturnPageDto<TGetModelDto>>(
         `GetAll`,
         filterPaginationDtoSchema.parse(paginationDto),
+         { headers:{Authorization : `Bearer ${this.jwtToken}`} }
       )
     ).data;
   }

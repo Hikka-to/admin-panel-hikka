@@ -3,14 +3,12 @@ import { Button } from "@heroui/react";
 import { CardHeader } from "@heroui/card";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useTranslations } from "use-intl";
 
 import { useAuth } from "@/hooks/auth";
 
 export default function UnauthorizedPage() {
   const { status } = useAuth({ redirect: true });
   const [isLoading, setIsLoading] = useState(false);
-  const t = useTranslations();
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -31,14 +29,14 @@ export default function UnauthorizedPage() {
           	space-y-2
           	justify-between"
     >
-      <h1 className="text-2xl font-bold">{t("Unauthorized Action")}</h1>
+      <h1 className="text-2xl font-bold">{"Unauthorized Action"}</h1>
       <Button
         className="!mt-0"
         isLoading={isLoading}
         variant="solid"
         onPress={handleLogout}
       >
-        {t("Auth.Logout")}
+        {"Logout"}
       </Button>
     </CardHeader>
   );

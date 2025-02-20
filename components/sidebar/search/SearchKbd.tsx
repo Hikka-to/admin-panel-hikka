@@ -2,11 +2,9 @@ import { Button, Tooltip } from "@heroui/react";
 import { Kbd } from "@heroui/kbd";
 import React, { useEffect } from "react";
 import { isMacOs } from "react-device-detect";
-import { useTranslations } from "use-intl";
 
 const SearchKbd = () => {
   const kbdRef = React.useRef<HTMLButtonElement>(null);
-  const t = useTranslations("Search");
 
   const showAdvancedSearchHandler = () => {
     console.log("Advanced Search");
@@ -27,7 +25,7 @@ const SearchKbd = () => {
 
   return (
     <Tooltip
-      content={`${t("Advanced Search")} (${isMacOs ? "Command" : "Ctrl"} + K)`}
+      content={`${"Advanced Search"} (${isMacOs ? "Command" : "Ctrl"} + K)`}
     >
       <Button
         ref={kbdRef}

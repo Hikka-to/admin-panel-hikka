@@ -1,6 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
-import React, { useEffect } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import {
   Button,
@@ -12,7 +12,6 @@ import {
   Tooltip,
 } from "@heroui/react";
 import { Icon } from "@iconify-icon/react";
-import { useTranslations } from "use-intl";
 
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import SidebarSearch from "@/components/sidebar/search/SidebarSearch";
@@ -22,10 +21,10 @@ interface DashboardClientProps {
   children: React.ReactNode;
 }
 
-const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
-  const [isOpened, setIsOpened] = React.useState(true);
-  const [isMobileOpened, setIsMobileOpened] = React.useState(false);
-  const sidebarRef = React.useRef<HTMLDivElement>(null);
+const DashboardClient: FC<DashboardClientProps> = ({ children }) => {
+  const [isOpened, setIsOpened] = useState(true);
+  const [isMobileOpened, setIsMobileOpened] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const { width, height } = useWindowDimensions();
   const bigWidth = width >= 768;
   const bigHeight = height >= 640;
@@ -34,12 +33,10 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
     (!bigHeight && bigWidth) ||
     (isMobileOpened && bigWidth);
   const sidebarOnTheLeft = showSidebar && bigWidth;
-  const t = useTranslations();
 
   const signOutHandler = async () => {
     await signOut({
-      redirect: true,
-      callbackUrl: "/auth/login",
+      redirect: true
     });
   };
 
@@ -196,7 +193,7 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
                 }
                 onPress={signOutHandler}
               >
-                {t("Auth.Logout")}
+                {"Logout"}
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -204,8 +201,8 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ children }) => {
             <Tooltip
               content={
                 showSidebar
-                  ? t("Sidebar.Close sidebar")
-                  : t("Sidebar.Open sidebar")
+                  ? ("Close sidebar")
+                  : ("Open sidebar")
               }
             >
               <Button
